@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+:root {
+
+  font-weight: 1100;
+  color-scheme: light dark;
+  /* color: rgba(255, 255, 255, 0.87); */
+  background: url('./pic/rfr.jpg');
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* a {
+  font-weight: 500;
+  color: black;
+  text-decoration: inherit;
+} */
+
+/* a:hover {
+  color: red;
+} */
+
+body {
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Oswald', sans-serif;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 28px;
+  margin-bottom: 60px;
+  color: whitesmoke;
+  width: 40%;
+  margin-top: 30px;
+  margin-left: 235px;
+  border-radius: 35px;
+  border: 3px solid white;
+  box-shadow: 5px 4px 4px 4px black;
+  font-family: 'Nosifer', sans-serif;
+  background:url('./pic/gh.jpg')
+ 
+}
+
+h4 {
+  font-size: 28px;
+  margin-bottom: 60px;
+  color: aliceblue;
+  width: 35%;
+  margin-top: 30px;
+  margin-left: 285px;
+  border-radius: 35px;
+  border: 3px solid white;
+  box-shadow: 5px 4px 4px 4px black;
+  font-family: 'Nosifer', sans-serif;
+  background:url('./pic/gh.jpg')
+ 
+}
+
+
+button {
+  color: white;
+  background-color:black;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: -10px;
+  font-family:cursive;
+
+}
+
+
+/* button {
+  border-radius: 81px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background: url('./pic/gh.jpg');
+} */
+
+/* button:hover {
+  border-color: #646cff;
+} */
+/* button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+} */
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
