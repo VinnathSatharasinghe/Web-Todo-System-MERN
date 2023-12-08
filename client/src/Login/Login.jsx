@@ -52,11 +52,9 @@ function Login() {
 
         if (result.data === "null") {
           toast.error("Login Failed. No record existed.", { autoClose: 5000 });
-
         } else if (result.data === "success") {
           toast.success("Login successful!", { autoClose: 5000 });
-           navigate('/afterlog')
-
+          navigate("/todo",{state: {name} });
         } else if (result.data === "nopass") {
           toast.error("Login Failed. Incorrect Password");
         } else {

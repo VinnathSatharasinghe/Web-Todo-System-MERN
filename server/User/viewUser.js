@@ -1,7 +1,7 @@
-const EmployeeModel = require("./models/Employee");
-const { app } = require(".");
+const EmployeeModel = require("../models/Employee");
+const { app } = require("..");
 
-app.put("/update/:id", (req, res) => {
+app.put("/view/:id", (req, res) => {
   const id = req.params.id;
   EmployeeModel.findByIdAndUpdate(
     { _id: id },
@@ -14,3 +14,4 @@ app.put("/update/:id", (req, res) => {
     .then((employee) => res.json(employee))
     .catch((err) => res.json(err));
 });
+

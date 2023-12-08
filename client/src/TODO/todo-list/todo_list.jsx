@@ -1,25 +1,22 @@
 import React from "react";
-import "../redux/users.css";
+// import "../redux/users.css";
 import { Link } from "react-router-dom";
-import Navi from "../Navbar/Navbar";
+import Navi from "../../Navbar/Navbar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteEmployees } from "./userSlice";
-import { getEmployees } from "./userSlice";
+import { deleteTodos, getTodos } from "../redux-todo/todo_userSlice";
 import { useEffect } from "react";
 
-
-
-function users() {
+function todo_list() {
   const dispatch = useDispatch();
-  const employees = useSelector((state) => state.employees.employees);
-  console.log(useSelector((state) => state.employees.employees));
+  const todos = useSelector((state) => state.todos.todos);
+  console.log(useSelector((state) => state.todos.todos));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001");
-        dispatch(getEmployees(response.data));
+        const response = await axios.get("http://localhost:3001/todo/find");
+        dispatch(getTodos(response.data));
       } catch (err) {
         console.log(err);
       }
@@ -27,13 +24,23 @@ function users() {
     fetchData();
   }, []);
 
+  const handleDelete = (id) => {
+    axios
+      .delete("http://localhost:3001/todo/delete/" + id)
+      .then((res) => {
+        dispatch(deleteTodos({ id }));
+        console.log(useSelector((state) => state.todos.todos));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
       <Navi />
       <div className="navv">
         <header>
-          <nav>
+          <h2>_________---_All TODOS__________</h2>
+          {/* <nav>
             <ul>
               <li>
                 <button className="home-btn">
@@ -42,57 +49,46 @@ function users() {
               </li>
               <li>
                 <button className="home-btn">
-                  <a href="/sing">Add New</a>
+                  <a href="/todo">Add New</a>
                 </button>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </header>
       </div>
 
       <div className="mainall">
-        {/* <div>
-        <ui className="flex">
-          <form action="/home">
-            <button className="btn1">Home</button>
-          </form>
-        </ui>
-
-        <ui className="flex">
-          <form action="/sing">
-            <button className="btn1">Add New</button>
-          </form>
-        </ui>
-      </div> */}
-
         <div className="box1">
           <table className="tablex">
             <thead>
               <tr className="test">
                 <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Password</th>
-
+                <th scope="col">Work</th>
+                <th scope="col"></th>
+                
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee) => {
+              {todos.map((todo) => {
                 return (
                   <tr>
-                    <td>{employee.name}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.password}</td>
+                    <td>{todo.name}</td>
+                    <td>{todo.work}</td>
+                    
+
                     <td>
-                      <Link to={`/edit/${employee.id}`} className="btnx1">
+                      <Link to={`/edit/${todo.id}`} className="btnx1">
                         Edit
                       </Link>
                       <button
-                        onClick={() => handleDelete(employee.id)}
+                        onClick={() => handleDelete(todo.id)}
                         className="btnx1"
                       >
                         Delete
                       </button>
-                      <Link to={`/view/${employee.id}`} className="btnx1">View</Link>
+                      <Link to={`/todo/view/${todo.id}`} className="btnx1">
+                        View
+                      </Link>
                     </td>
                   </tr>
                 );
@@ -105,4 +101,4 @@ function users() {
   );
 }
 
-export default users;
+export default todo_list;

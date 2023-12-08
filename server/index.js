@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const EmployeeModel = require("./models/Employee");
+const TodoModel = require("./models/Todo")
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,7 @@ app.post("/login", (req, res) => {
   });
 });
 
+
 app.post("/register", (req, res) => {
   EmployeeModel.create(req.body)
     .then((employees) => res.json(employees))
@@ -49,7 +51,7 @@ app.put("/update/:id", (req, res) => {
     }
   )
     .then((employee) => res.json(employee))
-    .catch((err) => res.json(err));
+    .catch((err) => res.json(err))
 });
 
 
@@ -74,6 +76,53 @@ app.delete("/deleteemployee/:id", (req, res) => {
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
+
+
+app.get("/todo/find", (req, res) => {
+  TodoModel.find()
+    .then((todos) => res.json(todos))
+    .catch((err) => res.json(err));
+});
+
+app.post("/todo/work", (req, res) => {
+  TodoModel.create(req.body)
+    .then((todos) => res.json(todos))
+    .catch((err) => res.json(err));
+});
+
+app.delete("/todo/delete/:id", (req, res) => {
+  const id = req.params.id;
+  TodoModel.findByIdAndDelete({ _id: id })
+    .then((response) => res.json(response))
+    .catch((err) => res.json(err));
+});
+
+app.put("/todo/update/:id", (req, res) => {
+  const id = req.params.id;
+  TodoModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      name: req.body.name,
+      work: req.body.work,
+    }
+  )
+    .then((todo) => res.json(todo))
+    .catch((err) => res.json(err));
+});
+
+app.put("/todo/view/:id", (req, res) => {
+  const id = req.params.id;
+  TodoModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      name: req.body.name,
+      work: req.body.work,
+    }
+  )
+    .then((todo) => res.json(todo))
+    .catch((err) => res.json(err));
+});
+
 
 
 app.listen(3001, () => {
