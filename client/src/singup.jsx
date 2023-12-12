@@ -2,8 +2,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
-import { addEmployees } from "./redux/userSlice";
-import {useDispatch} from 'react-redux'
+// import { addEmployees } from "./redux/userSlice";
+// import {useDispatch} from 'react-redux'
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ function singup() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   
   const [errors, setErrors] = useState({
@@ -64,9 +64,9 @@ function singup() {
 
           if (Object.values(newErrors).every((error) => error === "")) {
             axios
-              .post("http://localhost:3001/register", { name, email, password })
+              .post("http://localhost:3001/singup", { name, email, password })
               .then((result) => {
-                dispatch(addEmployees(result.data))
+                // dispatch(addEmployees(result.data))
                 console.log(result);
                 toast.success("Registration Successful!");
               })

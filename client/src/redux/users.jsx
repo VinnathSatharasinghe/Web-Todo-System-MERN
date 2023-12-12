@@ -27,6 +27,16 @@ function users() {
     fetchData();
   }, []);
 
+  const handleDelete = (id) => {
+    axios
+      .delete("http://localhost:3001/deleteemployee/:id/" + id)
+      .then((res) => {
+        dispatch(deleteEmployees({ id }));
+        console.log(useSelector((state) => state.todos.todos));
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   return (
     <div>
@@ -72,6 +82,7 @@ function users() {
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Password</th>
+
 
               </tr>
             </thead>

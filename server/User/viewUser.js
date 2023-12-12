@@ -9,6 +9,7 @@ app.put("/view/:id", (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
+      work: req.body.work,
     }
   )
     .then((employee) => res.json(employee))

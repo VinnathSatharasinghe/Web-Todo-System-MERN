@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const TodoSchema = new mongoose.Schema({
-  name: String,
-  work: String,
+  name: { type: String},
+  work: [{ type: String}],
 });
 
-const TodoModel = mongoose.model("todos", TodoSchema);
+const TodoModel = mongoose.model("", TodoSchema);
 module.exports = TodoModel;

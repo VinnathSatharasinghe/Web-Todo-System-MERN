@@ -15,7 +15,7 @@ function todo_list() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/todo/find");
+        const response = await axios.get("http://localhost:3001/viewtask");
         dispatch(getTodos(response.data));
       } catch (err) {
         console.log(err);

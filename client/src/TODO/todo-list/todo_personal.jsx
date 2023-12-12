@@ -20,7 +20,7 @@ function todo_personal() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/todo/find");
+        const response = await axios.get("http://localhost:3001/todos");
         dispatch(getTodos(response.data));
       } catch (err) {
         console.log(err);

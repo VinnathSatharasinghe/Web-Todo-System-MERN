@@ -51,8 +51,6 @@ const router = createBrowserRouter([
     path: "/todo_personal",
     element: <Todo_personal />,
   },
-
-  
   {
     path: "/edit/:id",
     element: <UP />,

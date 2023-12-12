@@ -30,6 +30,7 @@ const userSlice = createSlice({
         name: action.payload.name,
         email: action.payload.email,
         password: action.payload.password,
+
       };
     },
 

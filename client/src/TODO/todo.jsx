@@ -1,28 +1,34 @@
 import Button from "react-bootstrap/Button";
-import Link from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
-import { addTodos } from "../TODO/redux-todo/todo_userSlice";
-import { useDispatch } from "react-redux";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Nav from "../Navbar/Navbar";
-import "./todo_.css";
 import { useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import Nav from "../Navbar/Navbar";
+
+// import { addTodos } from "../TODO/redux-todo/todo_userSlice";
+import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+
+import "./todo_.css";
 
 function todo() {
 
-  const [work, setWork] = useState();
-  const dispatch = useDispatch();
+  const [body, setBody] = useState();
+  const [title, setTitle] = useState();
+
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const name = location.state ? location.state.name : null;
 
   const [errors, setErrors] = useState({
-    work: "",
+    title: "",
+    body: "",
   });
 
 
@@ -45,14 +51,15 @@ function todo() {
 
     let newErrors = { ...errors };
 
-    if (!work) {
-      toast.error("Login Failed. Enter Work");
+    if (!title) {
+      toast.error("No Task!. Enter Tasks");
     } else {
       if (Object.values(newErrors).every((error) => error === "")) {
         axios
-          .post("http://localhost:3001/todo/work" , { name, work })
+          .post("http://localhost:3001/addtask" , { name, title , body })
           .then((result) => {
-            dispatch(addTodos(result.data));
+            // dispatch(addTodos(result.data));
+            navigate("/todo_list");
             console.log(result);
             toast.success("Todo Successfully Added!");
           })
@@ -73,8 +80,8 @@ function todo() {
           <Form onSubmit={handleSubmit}>
             <h3>Todo</h3>
             <Form.Group className="mb-3" controlId="formBasicUsername">
-              {/* <Form.Label>Username</Form.Label> */}
-              <br />
+              <Form.Label>USERNAME :</Form.Label>
+         
               <input
                 type="text"
                 placeholder="Enter Username"
@@ -86,26 +93,38 @@ function todo() {
               />
             </Form.Group>
 
-            <br />
-            <br />
+            <Form.Group className="mb-3" controlId="formBasicTodo">
+            <Form.Label>TITLE :</Form.Label>
+              <input
+                id="title"
+                type="text"
+                placeholder="Enter Title"
+                autoComplete="off "
+                name="title"
+                value={title}
+                defaultValue={""}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <div className="text-danger">{errors.title}</div>
+            </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicTodo">
-              <br />
+            <Form.Label>BODY :</Form.Label>
               <input
-                id="work"
-                type="work1"
-                placeholder="Enter Work"
+                id="body"
+                type="text"
+                placeholder="Enter Body"
                 autoComplete="off "
-                name="work"
-                value={work}
+                name="body"
+                value={body}
                 defaultValue={""}
-                onChange={(e) => setWork(e.target.value)}
+                onChange={(e) => setBody(e.target.value)}
               />
-              <div className="text-danger">{errors.work}</div>
+              <div className="text-danger">{errors.body}</div>
             </Form.Group>
      
             <Button variant="primary" type="submit">
-              Add Todo
+              Todo
             </Button>
           </Form>
 
@@ -123,7 +142,7 @@ function todo() {
           />
 
           <Button variant="primary" type="submit">
-            <a href="/todo_personal">User</a>
+            <a href="/user">User</a>
           </Button> 
           <br />
            <Button variant="primary" type="submit">

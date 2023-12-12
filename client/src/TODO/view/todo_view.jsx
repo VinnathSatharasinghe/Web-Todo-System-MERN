@@ -5,7 +5,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTodos } from "../redux-todo/todo_userSlice";
 import "./todo_view.css";
 
 import Nav from "../../Navbar/Navbar";
@@ -23,7 +22,7 @@ function todo_view() {
     e.preventDefault();
 
     axios
-      .put("http://localhost:3001/todo/view/" + id, {
+      .put("http://localhost:3001/view/" + id, {
         work,
       })
 

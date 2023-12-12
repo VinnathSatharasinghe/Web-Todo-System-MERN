@@ -1,130 +1,258 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const EmployeeModel = require("./models/Employee");
-const TodoModel = require("./models/Todo")
-
 const app = express();
+const mongoose = require("mongoose");
 app.use(express.json());
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
 app.use(cors());
+
+const User = require("./mongo_learn/models/user");
+const List = require("./mongo_learn/models/todo");
+
+// const auth = require("./mongo_learn/auth(index)");
+// app.use("/api/v1", auth);
 
 mongoose.connect(
   "mongodb+srv://vinnath:acerlaptop111@cluster0.acbjy23.mongodb.net/?retryWrites=true&w=majority"
 );
 
 app.get("/", (req, res) => {
-  EmployeeModel.find()
-    .then((employees) => res.json(employees))
-    .catch((err) => res.json(err));
+  res.send("helxxlo");
 });
 
-app.post("/login", (req, res) => {
-  const { name, password } = req.body;
-  EmployeeModel.findOne({ name: name }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        res.json("success");
-      } else {
-        res.json("nopass");
-      }
-    } else {
-      res.json("null");
+app.post("/singup", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const hashpassword = bcrypt.hashSync(password);
+    const user = new User({ name, email, password: hashpassword });
+    await user.save().then(() => {
+      res.status(200).json({ user: user });
+    });
+  } catch (error) {
+    res.status(400).json({ message: "User Already Exists" });
+  }
+});
+
+
+
+app.post("/logingg", async (req, res) => {
+  try {
+    const user = await User.findOne({ name: req.body.name });
+    
+    if (!user) {
+      res.status(400).json({ message: "Please Sing Up First" });
+      console.log("no user")
+      res.json("success")
     }
-  });
-});
 
+    const isPasswordCorrect = bcrypt.compareSync(
+      req.body.password,
+      user.password,
+      res.json("success"),
+      console.log("okkkkkkkkkkkkkk")
+    );
 
-app.post("/register", (req, res) => {
-  EmployeeModel.create(req.body)
-    .then((employees) => res.json(employees))
-    .catch((err) => res.json(err));
-});
-
-app.put("/update/:id", (req, res) => {
-  const id = req.params.id;
-  EmployeeModel.findByIdAndUpdate(
-    { _id: id },
-    {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
+    if (!isPasswordCorrect) {
+      res.status(400).json({ message: "Password is Not Correct" });
+      console.log("no pass")
     }
-  )
-    .then((employee) => res.json(employee))
-    .catch((err) => res.json(err))
+    const { password, ...others } = user._doc;
+    res.status(200).json({ others });
+    
+  } catch (error) {
+    res.status(400).json({ message: "Something Wrong" });
+    console.log("something error")
+  }
 });
 
 
-app.put("/view/:id", (req, res) => {
-  const id = req.params.id;
-  EmployeeModel.findByIdAndUpdate(
-    { _id: id },
-    {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
+app.post("/addtask", async (req, res) => {
+  try {
+    const { title, body, name } = req.body;
+    const existingUser = await User.findOne({ name });
+    if (existingUser) {
+      const list = new List({ title, body, user11: existingUser });
+      await list.save().then(() => res.status(200).json({ list }));
+      existingUser.list.push(list);
+      existingUser.save();
     }
-  )
-    .then((employee) => res.json(employee))
-    .catch((err) => res.json(err));
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 
-app.delete("/deleteemployee/:id", (req, res) => {
-  const id = req.params.id;
-  EmployeeModel.findByIdAndDelete({ _id: id })
-    .then((response) => res.json(response))
-    .catch((err) => res.json(err));
-});
-
-
-app.get("/todo/find", (req, res) => {
-  TodoModel.find()
-    .then((todos) => res.json(todos))
-    .catch((err) => res.json(err));
-});
-
-app.post("/todo/work", (req, res) => {
-  TodoModel.create(req.body)
-    .then((todos) => res.json(todos))
-    .catch((err) => res.json(err));
-});
-
-app.delete("/todo/delete/:id", (req, res) => {
-  const id = req.params.id;
-  TodoModel.findByIdAndDelete({ _id: id })
-    .then((response) => res.json(response))
-    .catch((err) => res.json(err));
-});
-
-app.put("/todo/update/:id", (req, res) => {
-  const id = req.params.id;
-  TodoModel.findByIdAndUpdate(
-    { _id: id },
-    {
-      name: req.body.name,
-      work: req.body.work,
+app.put("/updatetask/:id", async (req, res) => {
+  try {
+    const { title, body, name } = req.body;
+    const existingUser = await User.findOne({ name });
+    if (existingUser) {
+      const list = await List.findByIdAndUpdate(req.params.id, { title, body});
+      list.save().then(() => res.status(200).json({ message: "Task Updated!"}));
     }
-  )
-    .then((todo) => res.json(todo))
-    .catch((err) => res.json(err));
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-app.put("/todo/view/:id", (req, res) => {
-  const id = req.params.id;
-  TodoModel.findByIdAndUpdate(
-    { _id: id },
-    {
-      name: req.body.name,
-      work: req.body.work,
+app.delete("/deletetask/:id", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const existingUser = await User.findOne({ name });
+    if (existingUser) {
+      await List.findByIdAndUpdate(req.params.id).then(() =>
+      res.status(200).json({ message: "Task Deleted"})
+      );
     }
-  )
-    .then((todo) => res.json(todo))
-    .catch((err) => res.json(err));
+  } catch (error) {
+    console.log(error);
+  }
 });
-
-
 
 app.listen(3001, () => {
-  console.log("Server is Running !!");
+  console.log("Server is Running on PORT - 3001");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.post("/login", (req, res) => {
+//   const { name, password } = req.body;
+//   UserModel.findOne({ name: name }).then((user) => {
+//     if (user) {
+//       if (user.password === password) {
+//         res.json("success");
+//       } else {
+//         res.json("nopass");
+//       }
+//     } else {
+//       res.json("null");
+//     }
+//   });
+// });
+
+// app.post("/register", (req, res) => {
+//   UserModel.create(req.body)
+//     .then((employees) => res.json(employees))
+//     .catch((err) => res.json(err));
+// });
+
+// app.put("/update/:id", (req, res) => {
+//   const id = req.params.id;
+//   UserModel.findByIdAndUpdate(
+//     { _id: id },
+//     {
+//       name: req.body.name,
+//       email: req.body.email,
+//       password: req.body.password,
+//       work: req.body.work,
+//     }
+//   )
+//     .then((employee) => res.json(employee))
+//     .catch((err) => res.json(err))
+// });
+
+// app.put("/view/:id", (req, res) => {
+//   const id = req.params.id;
+//   UserModel.findByIdAndUpdate(
+//     { _id: id },
+//     {
+//       name: req.body.name,
+//       email: req.body.email,
+//       password: req.body.password,
+//       work: req.body.work,
+//     }
+//   )
+//     .then((employee) => res.json(employee))
+//     .catch((err) => res.json(err));
+// });
+
+// app.delete("/deleteemployee/:id", (req, res) => {
+//   const id = req.params.id;
+//   UserModel.findByIdAndDelete({ _id: id })
+//     .then((response) => res.json(response))
+//     .catch((err) => res.json(err));
+// });
+
+// app.get("/todo", (req, res) => {
+//   TodoModel.find()
+//     .then((todos) => res.json(todos))
+//     .catch((err) => res.json(err));
+// });
+
+// app.post("/todo/find/:id", (req, res) => {
+//   const id = req.params.id;
+//   TodoModel.create({_id: id})
+//     .then((todos) => res.json(todos))
+//     .catch((err) => res.json(err));
+// });
+
+// app.get("/todo/find/view/:id", (req, res) => {
+//   const id = req.params.id;
+//   TodoModel.find({_id: id})
+//     .then((todos) => res.json(todos))
+//     .catch((err) => res.json(err));
+// });
+
+// app.post("/todo/add", (req, res) => {
+//   TodoModel.create(req.body)
+//     .then((todos) => res.json(todos))
+//     .catch((err) => res.json(err));
+// });
+
+// app.delete("/todo/delete/:id", (req, res) => {
+//   const id = req.params.id;
+//   TodoModel.findByIdAndDelete({ _id: id })
+//     .then((response) => res.json(response))
+//     .catch((err) => res.json(err));
+// });
+
+// app.put("/todo/update/:id", (req, res) => {
+//   const id = req.params.id;
+//   TodoModel.findByIdAndUpdate(
+//     { _id: id },
+//     {
+//       name: req.body.name,
+//       work: req.body.work,
+//     }
+//   )
+//     .then((todo) => res.json(todo))
+//     .catch((err) => res.json(err));
+// });
+
+// app.put("/todo/view/:id", (req, res) => {
+//   const id = req.params.id;
+//   TodoModel.findByIdAndUpdate(
+//     { _id: id },
+//     {
+//       name: req.body.name,
+//       work: req.body.work,
+//     }
+//   )
+//     .then((todo) => res.json(todo))
+//     .catch((err) => res.json(err));
+// });

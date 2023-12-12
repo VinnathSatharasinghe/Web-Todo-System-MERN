@@ -42,16 +42,13 @@ function Login() {
       });
     };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-    };
     axios
-      .post("http://localhost:3001/login", { name, password })
+      .post("http://localhost:3001/logingg", { name, password })
       .then((result) => {
         console.log(result);
 
-        if (result.data === "null") {
-          toast.error("Login Failed. No record existed.", { autoClose: 5000 });
+        if (result.data === "nouser") {
+          toast.error("Login Failed. No User existed.", { autoClose: 5000 });
         } else if (result.data === "success") {
           toast.success("Login successful!", { autoClose: 5000 });
           navigate("/todo",{state: {name} });
