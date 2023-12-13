@@ -142,7 +142,7 @@ function todo() {
           />
 
           <Button variant="primary" type="submit">
-            <a href="/user">User</a>
+            <a href="/todo_personal">User</a>
           </Button> 
           <br />
            <Button variant="primary" type="submit">

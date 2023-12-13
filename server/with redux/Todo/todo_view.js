@@ -1,12 +1,11 @@
-const TodoModel = require("../models/Todo");
-const { app } = require("..");
+const TodoModel = require("../../models/Todo");
+const { app } = require("../..");
 
-app.put("/todo/update/:id", (req, res) => {
+app.put("todo/view/:id", (req, res) => {
   const id = req.params.id;
   TodoModel.findByIdAndUpdate(
     { _id: id },
     {
-      name: req.body.name,
       work: req.body.work,
     }
   )

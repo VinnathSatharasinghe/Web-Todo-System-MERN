@@ -83,14 +83,10 @@ function singup() {
       }
 
     }
-
-
-
-
-
-
-
   };
+
+
+  
     // axios
     //   .post("http://localhost:3001/register", { name, email, password })
     //   .then((result) => {

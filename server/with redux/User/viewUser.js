@@ -1,5 +1,5 @@
 const EmployeeModel = require("../models/Employee");
-const { app } = require("..");
+const { app } = require("../..");
 
 app.put("/view/:id", (req, res) => {
   const id = req.params.id;

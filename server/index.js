@@ -8,6 +8,7 @@ app.use(cors());
 
 const User = require("./mongo_learn/models/user");
 const List = require("./mongo_learn/models/todo");
+const TodoModel = require("./mongo_learn/models/todo");
 
 // const auth = require("./mongo_learn/auth(index)");
 // app.use("/api/v1", auth);
@@ -109,12 +110,117 @@ app.delete("/deletetask/:id", async (req, res) => {
   }
 });
 
+
+
+
+
+app.get("/viewuser", async (req, res) => {
+  const user = await User.find({ user: User});
+  res.status(200).json({ User: user});
+});
+
+
+app.get("/viewuser/:id", async (req, res) => {
+  const user = await User.find({ user :req.params.id});
+  res.status(200).json({ User: user});
+});
+
+
+app.get("/viewtask1", async (req, res) => {
+  const list = await List.find({ user: User});
+  res.status(200).json(list);
+});
+
+
+
+app.get("/viewtask1/:id", async (req, res) => {
+  const id = req.params.id;
+  const list = await TodoModel.find({_id: id});
+  res.status(200).json({ List: list });
+
+});
+
+// app.get("/viewtask1/:id", async (req, res) => {
+//   try {
+//     const userId = req.params.id;
+
+//     // Assuming your List model has a 'user' field representing the user ID
+//     const list = await List.find({ user: userId });
+
+//     res.status(200).json({ List: list });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+
+// app.get("/viewtask1/:id", async (req, res) => {
+//   const list = await List.find({user :req.params.id});
+//   res.status(200).json({ List: list});
+// });
+
+
+
+app.get("/viewtask2/:id", async (req, res) => {
+  const list = await List.find({ user11: req.params.id}).sort({ createdAt: -1});
+  if (list.length !== 0) {
+    res.status(200).json({ list: list});
+  } else {
+    res.status(200).json({ message: "No Tasks In The List" });
+  }
+});
+
+
 app.listen(3001, () => {
   console.log("Server is Running on PORT - 3001");
 });
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.get("/todo", (req, res) => {
+//   TodoModel.find()
+//     .then((todos) => res.json(todos))
+//     .catch((err) => res.json(err));
+// });
+
+// app.post("/todo/find/:id", (req, res) => {
+//   const id = req.params.id;
+//   TodoModel.create({_id: id})
+//     .then((todos) => res.json(todos))
+//     .catch((err) => res.json(err));
+// });
 
 
 
@@ -198,18 +304,7 @@ app.listen(3001, () => {
 //     .catch((err) => res.json(err));
 // });
 
-// app.get("/todo", (req, res) => {
-//   TodoModel.find()
-//     .then((todos) => res.json(todos))
-//     .catch((err) => res.json(err));
-// });
 
-// app.post("/todo/find/:id", (req, res) => {
-//   const id = req.params.id;
-//   TodoModel.create({_id: id})
-//     .then((todos) => res.json(todos))
-//     .catch((err) => res.json(err));
-// });
 
 // app.get("/todo/find/view/:id", (req, res) => {
 //   const id = req.params.id;
