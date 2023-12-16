@@ -1,10 +1,11 @@
 import React from "react";
-import "./nav.css";
+import "./Nav.css";
 
 function CreativeNavbar() {
   return (
     <nav className="navbar">
       <div className="logo">
+        <br />
         <a href="/home">R E D U X - C A F E</a>
       </div>
       <ul className="nav-links">
@@ -13,15 +14,6 @@ function CreativeNavbar() {
         </li>
         <li>
           <a href="/gg">Login</a>
-        </li>
-        <li>
-          <a href="/table">Update</a>
-        </li>
-        <li>
-          <a href="/sing">Portfolio</a>
-        </li>
-        <li>
-          <a href="/todo">TODO</a>
         </li>
       </ul>
     </nav>

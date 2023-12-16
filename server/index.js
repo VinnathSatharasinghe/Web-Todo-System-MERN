@@ -9,6 +9,7 @@ app.use(cors());
 const User = require("./mongo_learn/models/user");
 const List = require("./mongo_learn/models/todo");
 const TodoModel = require("./mongo_learn/models/todo");
+const UserModel = require("./mongo_learn/models/user");
 
 // const auth = require("./mongo_learn/auth(index)");
 // app.use("/api/v1", auth);
@@ -34,38 +35,56 @@ app.post("/singup", async (req, res) => {
   }
 });
 
-
-
 app.post("/logingg", async (req, res) => {
   try {
     const user = await User.findOne({ name: req.body.name });
-    
+
     if (!user) {
-      res.status(400).json({ message: "Please Sing Up First" });
-      console.log("no user")
-      res.json("success")
+      res.status(400).json({ message: "nouser" });
+      console.log("no user");
     }
 
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
-      user.password,
-      res.json("success"),
-      console.log("okkkkkkkkkkkkkk")
+      user.password
     );
 
     if (!isPasswordCorrect) {
-      res.status(400).json({ message: "Password is Not Correct" });
-      console.log("no pass")
+      res.status(400).json({ message: "nopass" });
+      console.log("no pass");
+    } else {
+      const { password, ...others } = user._doc;
+      res.status(200).json({
+        message: "success",
+        name: user.name,
+        email: user.email,
+        id: user.id,
+        list: user.list,
+
+        // others,
+        // user: {
+        //   name: user.name,
+        //   email: user.email,
+        //   id: user._id,
+        // },
+      });
+
+      // res.status(200).json({
+      //   message: "success",
+      //   others,
+      // });
+
+      // res.status(200).json({ message: "success" });
+      // const { password, ...others } = user._doc;
+      // res.status(200).json({ others });
+      // console.log("ok");
+      // res.status(200).json({ message: "success" });
     }
-    const { password, ...others } = user._doc;
-    res.status(200).json({ others });
-    
   } catch (error) {
     res.status(400).json({ message: "Something Wrong" });
-    console.log("something error")
+    console.log("something error");
   }
 });
-
 
 app.post("/addtask", async (req, res) => {
   try {
@@ -82,14 +101,15 @@ app.post("/addtask", async (req, res) => {
   }
 });
 
-
 app.put("/updatetask/:id", async (req, res) => {
   try {
     const { title, body, name } = req.body;
     const existingUser = await User.findOne({ name });
     if (existingUser) {
-      const list = await List.findByIdAndUpdate(req.params.id, { title, body});
-      list.save().then(() => res.status(200).json({ message: "Task Updated!"}));
+      const list = await List.findByIdAndUpdate(req.params.id, { title, body });
+      list
+        .save()
+        .then(() => res.status(200).json({ message: "Task Updated!" }));
     }
   } catch (error) {
     console.log(error);
@@ -102,7 +122,7 @@ app.delete("/deletetask/:id", async (req, res) => {
     const existingUser = await User.findOne({ name });
     if (existingUser) {
       await List.findByIdAndUpdate(req.params.id).then(() =>
-      res.status(200).json({ message: "Task Deleted"})
+        res.status(200).json({ message: "Task Deleted" })
       );
     }
   } catch (error) {
@@ -110,33 +130,39 @@ app.delete("/deletetask/:id", async (req, res) => {
   }
 });
 
-
-
-
-
 app.get("/viewuser", async (req, res) => {
-  const user = await User.find({ user: User});
-  res.status(200).json({ User: user});
+  const user = await User.find({ user: User });
+  res.status(200).json(user);
 });
-
-
-app.get("/viewuser/:id", async (req, res) => {
-  const user = await User.find({ user :req.params.id});
-  res.status(200).json({ User: user});
-});
-
 
 app.get("/viewtask1", async (req, res) => {
   const list = await List.find({ user: User});
   res.status(200).json(list);
 });
 
+// app.get("/viewuser/:id", async (req, res) => {
+//   const user = await User.find({ user: req.params.id });
+//   res.status(200).json({ User: user });
+// });
+
+app.get("/viewuser/:id", async (req, res) => {
+  const id = req.params.id;
+  const list = await UserModel.find({ _id: id });
+  res.status(200).json({ List: list });
+});
+
 
 
 app.get("/viewtask1/:id", async (req, res) => {
-  const id = req.params.id;
-  const list = await TodoModel.find({_id: id});
-  res.status(200).json({ List: list });
+  try{
+    const id = req.params.id;
+    const list = await TodoModel.find({ _id: id });
+    res.status(200).json({ List: list });
+
+  } catch{
+    res.status(200).json({message: "No one found" });
+    console.log("mo one related to id")
+  }
 
 });
 
@@ -154,60 +180,25 @@ app.get("/viewtask1/:id", async (req, res) => {
 //   }
 // });
 
-
 // app.get("/viewtask1/:id", async (req, res) => {
 //   const list = await List.find({user :req.params.id});
 //   res.status(200).json({ List: list});
 // });
 
-
-
 app.get("/viewtask2/:id", async (req, res) => {
-  const list = await List.find({ user11: req.params.id}).sort({ createdAt: -1});
+  const list = await List.find({ user11: req.params.id }).sort({
+    createdAt: -1,
+  });
   if (list.length !== 0) {
-    res.status(200).json({ list: list});
+    res.status(200).json({ list: list });
   } else {
     res.status(200).json({ message: "No Tasks In The List" });
   }
 });
 
-
 app.listen(3001, () => {
   console.log("Server is Running on PORT - 3001");
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // app.get("/todo", (req, res) => {
 //   TodoModel.find()
@@ -221,30 +212,6 @@ app.listen(3001, () => {
 //     .then((todos) => res.json(todos))
 //     .catch((err) => res.json(err));
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // app.post("/login", (req, res) => {
 //   const { name, password } = req.body;
@@ -303,8 +270,6 @@ app.listen(3001, () => {
 //     .then((response) => res.json(response))
 //     .catch((err) => res.json(err));
 // });
-
-
 
 // app.get("/todo/find/view/:id", (req, res) => {
 //   const id = req.params.id;

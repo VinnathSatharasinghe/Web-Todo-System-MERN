@@ -1,57 +1,43 @@
-import React from "react";
-import "../../redux/users.css";
-// import { Link } from "react-router-dom";
-import Navi from "../../Navbar/Navbar";
-// import axios from "axios";
-// import { useDispatch, useSelector } from "react-redux";
-// import { deleteTodos, getTodos } from "../redux-todo/todo_userSlice";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Nav from "../../../Page/Navbar/Navbar";
+import axios from "axios";
+import "../../../Page/Login/Login.css";
 
-// function todo_list() {
+function TodoList() {
+  const [todos, setTodos] = useState([]);
 
-const TaskTable = () => {
-  // State to store the list of tasks
-  const [taskList, setTaskList] = useState([]);
-
-  // Fetch data from the "/viewtask" endpoint when the component mounts
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/viewtask");
-        const data = await response.json();
-        setTaskList(data.list);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once
+    // Fetch todo list data including user information
+    axios
+      .get("http://localhost:3001/viewtask1")
+      .then((response) => {
+        setTodos(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching todo list:", error);
+      });
+  }, []);
 
   return (
     <div>
-      <Navi />
+      <Nav />
       <div className="mainall">
         <div className="box1">
-          <h2>Task List</h2>
+          <h2>Todo List</h2>
           <br />
-
           <table className="tablex">
             <thead>
-              <tr>
-                <th>User DB_ID</th>
-                <th>Task Title</th>
-                <th>Task Body</th>
-                {/* Add more table headers as needed */}
+              <tr className="test">
+                <th>Title</th>
+                <th>Body</th>
               </tr>
             </thead>
             <tbody>
-              {taskList.map((task) => (
-                <tr key={task.name}>
-                  <td>{task.user11}</td>
-                  <td>{task.title}</td>
-                  <td>{task.body}</td>
-                  {/* Add more table cells for additional task properties */}
+              {todos.map((todo) => (
+                <tr key={todo._id}>
+                  {/* <td>{todo.user11}</td> */}
+                  <td>{todo.title}</td>
+                  <td>{todo.body}</td>
                 </tr>
               ))}
             </tbody>
@@ -60,11 +46,9 @@ const TaskTable = () => {
       </div>
     </div>
   );
-};
+}
 
-// }
-
-export default TaskTable;
+export default TodoList;
 
 // const List = useSelector((state) => state.list.list);
 // console.log(useSelector((state) => state.todos.todos));

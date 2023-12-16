@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Nav from "./Navbar/Navbar";
+import Nav from "../Navbar/Navbar";
 import "./sing.css";
 
 
@@ -28,20 +28,6 @@ function singup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const notifySuccess = (message) => {
-      toast.success(message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    };
-
 
     let newErrors = { ...errors };
 
@@ -85,16 +71,6 @@ function singup() {
     }
   };
 
-
-  
-    // axios
-    //   .post("http://localhost:3001/register", { name, email, password })
-    //   .then((result) => {
-    //     console.log(result);
-    //   })
-    //   .catch((err) => console.log(err));
-
-
   return (
     <div>
       <Nav/>
@@ -104,8 +80,8 @@ function singup() {
             <h3>Register</h3>
 
             <Form.Group className="mb-3" controlId="formBasicUsername">
-              {/* <Form.Label>Username</Form.Label> */}
-              {/* <label htmlFor="name">Username</label> */}
+              <Form.Label>Username</Form.Label> 
+              <br />
               <br />
               <input
                 id="name"
@@ -121,8 +97,8 @@ function singup() {
             </Form.Group>
             <br />
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              {/* <Form.Label>Email address</Form.Label> */}
-              {/* <label htmlFor="email">Email address</label> */}
+              <Form.Label>Email address</Form.Label>
+              <br />
               <br />
               <input
                 id="email"
@@ -140,8 +116,8 @@ function singup() {
             <br />
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              {/* <Form.Label>Password</Form.Label> */}
-              {/* <label htmlFor="password">Password</label> */}
+              <Form.Label>Password</Form.Label>
+              <br />
               <br />
               <input
                 id="password"
@@ -154,7 +130,6 @@ function singup() {
               />
               <div className="text-danger">{errors.password}</div>
             </Form.Group>
-            <br />
 
             <Button variant="primary" type="submit">
               Submit

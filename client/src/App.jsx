@@ -1,27 +1,17 @@
 // // import "@fortawesome/fontawesome-free/css/all.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Users from "./redux/users";
-import Home from "./Home/Home";
-import Login from "./Login/Login";
-import Singup from "./singup";
-import UP from "./redux/update";
-import View from './redux/view'
-import After_login from "./User/After_login";
-import Todo from './TODO/todo'
-import Todo_list from './TODO/todo-list/todo_list'
-import Todo_view from "./TODO/view/todo_view";
-import Todo_personal from "./TODO/todo-list/todo_personal"
-
+import Home from "./Page/Home/Home";
+import Login from "./Page/Login/Login";
+import Singup from "./Page/Singup/singup";
+import Todo from "./TODO/Todo_Main/todo";
+import Todo_list from "./TODO/components/todo-list/todo_list";
+import Todo_personal from "./TODO/components/todo-list/todo_personal";
 
 const router = createBrowserRouter([
-    {
+  {
     path: "/",
     element: <Home />,
-  },
-  {
-    path: "/users",
-    element: <Users />,
   },
   {
     path: "/home",
@@ -36,10 +26,6 @@ const router = createBrowserRouter([
     element: <Singup />,
   },
   {
-    path: "/afterlog",
-    element: <After_login />,
-  },
-  {
     path: "/todo",
     element: <Todo />,
   },
@@ -51,24 +37,9 @@ const router = createBrowserRouter([
     path: "/todo_personal",
     element: <Todo_personal />,
   },
-  {
-    path: "/edit/:id",
-    element: <UP />,
-  },
-  {
-    path: "/view/:id",
-    element: <View />,
-  },
-  {
-    path: "todo/view/:id",
-    element: <Todo_view />,
-  },
 ]);
 
-
-
 function App() {
-
   return (
     <div>
       <RouterProvider router={router}></RouterProvider>
@@ -76,16 +47,4 @@ function App() {
   );
 }
 
-
-
 export default App;
-
-{
-  /* <BrowserRouter>
-<Users />
-<Routes>
-  <Route path="/home" element={<Home />}></Route>
-  <Route path="/login" element={<Login />}></Route>
-</Routes>
-</BrowserRouter> */
-}

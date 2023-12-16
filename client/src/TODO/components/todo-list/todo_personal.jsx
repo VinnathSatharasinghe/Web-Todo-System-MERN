@@ -1,107 +1,54 @@
-import React from "react";
-// import "../redux/users.css";
-import { Link } from "react-router-dom";
-import Navi from "../../Navbar/Navbar";
-// import axios from "axios";
-// import { useDispatch, useSelector } from "react-redux";
-// import { deleteTodos, getTodos } from "../redux-todo/todo_userSlice";
-// import { useEffect } from "react";
-// import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../../../Page/Login/Login.css";
+import Nav from "../../../Page/Navbar/Navbar";
 
-const TaskTable = ({ userId }) => {
-  const [taskList, setTaskList] = useState([]);
-  const [loading, setLoading] = useState(true);
+function TodoList() {
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/viewtask/${userId}`);
-        const data = await response.json();
-        setTaskList(data.list);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [userId]);
+    // Fetch todo list data including user information
+    axios
+      .get("http://localhost:3001/viewuser")
+      .then((response) => {
+        setTodos(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching todo list:", error);
+      });
+  }, []);
 
   return (
     <div>
-      <Navi />
+      <Nav />
       <div className="mainall">
         <div className="box1">
-          <h2>Task List</h2>
+          <h2>Todo List</h2>
           <br />
-
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <table className="tablex">
-              <thead>
-                <tr>
-                  <th>User DB_ID</th>
-                  <th>Task Title</th>
-                  <th>Task Body</th>
+          <table className="tablex">
+            <thead>
+              <tr className="test">
+                <th>User</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {todos.map((todo) => (
+                <tr key={todo.id}>
+                  <td>{todo.name}</td>
+                  <td>{todo.email}</td>
+                  {/* <td>{todo.password}</td> */}
                 </tr>
-              </thead>
-              <tbody>
-                {taskList.map((task) => (
-                  <tr key={task._id}>
-                    <td>{task.user11}</td>
-                    <td>{task.title}</td>
-                    <td>{task.body}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   );
-};
+}
 
-
-export default TaskTable;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default TodoList;
 
 // function todo_personal() {
 
@@ -162,11 +109,11 @@ export default TaskTable;
 //           <table className="tablex">
 //             <thead>
 //               <tr className="test">
-                
+
 //                 <th scope="col">Name</th>
 //                 <th scope="col">Work</th>
 //                 <th scope="col"></th>
-                
+
 //               </tr>
 //             </thead>
 //             <tbody>
@@ -175,7 +122,6 @@ export default TaskTable;
 //                   <tr>
 //                     <td>{todo.name}</td>
 //                     <td>{todo.work}</td>
-                    
 
 //                     <td>
 //                       <Link to={`/edit/${todo.id}`} className="btnx1">

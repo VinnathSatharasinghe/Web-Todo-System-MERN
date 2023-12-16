@@ -25,16 +25,6 @@ function Home() {
                   <a href="/sing">SINGUP</a>
                 </button>
               </li>
-              <li>
-                <button className="home-btn">
-                  <a href="/users">View</a>
-                </button>
-              </li>
-              <li>
-                <button className="home-btn">
-                  <a href="#contact">CONTENT</a>
-                </button>
-              </li>
             </ul>
           </nav>
         </header>
@@ -42,34 +32,19 @@ function Home() {
           <section className="hero">
             <h1>Welcome to Our Impressive Website</h1>
             <p>Your go-to source for everything amazing.</p>
-            <a href="/learn-more" className="cta-button">
-              Learn More
-            </a>
           </section>
           <section className="features">
             <div className="feature">
               <h2>Feature 1</h2>
               <p>Some cool feature description.</p>
-              <br />
-              <a href="/learn-more" className="cta-button">
-                Learn More
-              </a>
             </div>
             <div className="feature">
               <h2>Feature 2</h2>
               <p>Another awesome feature description.</p>
-              <br />
-              <a href="/learn-more" className="cta-button">
-                Learn More
-              </a>
             </div>
             <div className="feature">
               <h2>Feature 3</h2>
               <p>Yet another fantastic feature description.</p>
-              <br />
-              <a href="/learn-more" className="cta-button">
-                Learn More
-              </a>
             </div>
           </section>
         </main>

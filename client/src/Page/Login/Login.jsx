@@ -8,19 +8,6 @@ import "./login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const notify = () => {
-  toast.success("🦄 Wow so easy!", {
-    position: "bottom-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
-  });
-};
-
 function Login() {
   const [name, setName] = useState();
   const [password, setPassword] = useState();
@@ -29,30 +16,24 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const notifySuccess = (message) => {
-      toast.success(message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    };
-
     axios
       .post("http://localhost:3001/logingg", { name, password })
       .then((result) => {
         console.log(result);
 
-        if (result.data === "nouser") {
+        if (result.data.message === "nouser") {
           toast.error("Login Failed. No User existed.", { autoClose: 5000 });
-        } else if (result.data === "success") {
+        } else if (result.data.message === "success") {
           toast.success("Login successful!", { autoClose: 5000 });
-          navigate("/afterlog",{state: {name} });
-        } else if (result.data === "nopass") {
+          // navigate("/afterlog", { state: { user: result.data.others } });
+          navigate("/todo", {
+            state: {
+              name: result.data.name,
+              email: result.data.email,
+              id: result.data.id,
+            },
+          });
+        } else if (result.data.message === "wpass") {
           toast.error("Login Failed. Incorrect Password");
         } else {
           toast.error("Login Failed. No record existed.");
@@ -69,7 +50,7 @@ function Login() {
           <Form onSubmit={handleSubmit}>
             <h4>Login Now</h4>
             <Form.Group className="mb-3" controlId="formBasicUsername">
-              {/* <Form.Label>Username</Form.Label> */}
+              <Form.Label>Username</Form.Label>
               <br />
               <input
                 type="text"
@@ -78,12 +59,14 @@ function Login() {
                 name="name"
                 defaultValue={""}
                 onChange={(e) => setName(e.target.value)}
+                required
               />
             </Form.Group>
             <br />
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              {/* <Form.Label>Password</Form.Label> */}
+              <Form.Label>Password</Form.Label>
               <br />
+
               <input
                 type="password"
                 placeholder="Enter Password"
@@ -91,6 +74,7 @@ function Login() {
                 autoComplete="off"
                 defaultValue={""}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </Form.Group>
 
