@@ -48,7 +48,7 @@ function Login() {
       <div className="mainx">
         <div className="formx">
           <Form onSubmit={handleSubmit}>
-            <h4>Login Now</h4>
+            <h4 type="login">Login now</h4>
             <Form.Group className="mb-3" controlId="formBasicUsername">
               <Form.Label>Username</Form.Label>
               <br />
@@ -78,7 +78,7 @@ function Login() {
               />
             </Form.Group>
 
-            <Button onClick={handleSubmit} variant="primary" type="submit">
+            <Button onClick={handleSubmit} variant="primary" type="submit2">
               Login
             </Button>
           </Form>
@@ -96,7 +96,7 @@ function Login() {
             theme="dark"
           />
 
-          <Button variant="primary" type="login">
+          <Button variant="primary" type="login2">
             <a href="/home">Home</a>
           </Button>
         </div>

@@ -92,7 +92,17 @@ app.post("/addtask", async (req, res) => {
     const existingUser = await User.findOne({ name });
     if (existingUser) {
       const list = new List({ title, body, user11: existingUser });
-      await list.save().then(() => res.status(200).json({ list }));
+      const { ...others } = existingUser._doc;
+      await list.save().then(() =>
+        res.status(200).json({
+          message: "success11",
+          title: list.title,
+          body: list.body,
+          email: existingUser.email,
+          id: existingUser._id,
+          name: existingUser.name,
+        })
+      );
       existingUser.list.push(list);
       existingUser.save();
     }
@@ -100,6 +110,7 @@ app.post("/addtask", async (req, res) => {
     console.log(error);
   }
 });
+
 
 app.put("/updatetask/:id", async (req, res) => {
   try {
@@ -135,36 +146,49 @@ app.get("/viewuser", async (req, res) => {
   res.status(200).json(user);
 });
 
-app.get("/viewtask1", async (req, res) => {
-  const list = await List.find({ user: User});
-  res.status(200).json(list);
-});
+// app.get("/viewtask1", async (req, res) => {
+//   const list = await List.find({ user: User });
+//   res.status(200).json(list);
+// });
 
 // app.get("/viewuser/:id", async (req, res) => {
 //   const user = await User.find({ user: req.params.id });
 //   res.status(200).json({ User: user });
 // });
 
-app.get("/viewuser/:id", async (req, res) => {
-  const id = req.params.id;
-  const list = await UserModel.find({ _id: id });
-  res.status(200).json({ List: list });
-});
+// app.get("/viewuser/:id", async (req, res) => {
+//   const id = req.params.id;
+//   const list = await UserModel.find({ _id: id });
+//   res.status(200).json({ List: list });
+// });
 
-
-
-app.get("/viewtask1/:id", async (req, res) => {
-  try{
+app.get("/viewtask/:id", async (req, res) => {
+  try {
     const id = req.params.id;
     const list = await TodoModel.find({ _id: id });
-    res.status(200).json({ List: list });
+    res.status(200).json({ list: list });
+    console.log("id found");
+  } catch {
+    res.status(200).json({ message: "No one found" });
+    console.log("mo one related to id");
+  }
+});
 
-  } catch{
-    res.status(200).json({message: "No one found" });
-    console.log("mo one related to id")
+app.get("/viewuser/:id", async (req, res) => {
+  try{
+    const id = req.params.id;
+    const user = await UserModel.find({ _id: id });
+    res.status(200).json({ user: user });
+    console.log(" user id found");
+
+  } catch {
+    res.status(200).json({ message: "No one found" });
+    console.log("no user related to id");
   }
 
 });
+
+
 
 // app.get("/viewtask1/:id", async (req, res) => {
 //   try {
@@ -199,6 +223,33 @@ app.get("/viewtask2/:id", async (req, res) => {
 app.listen(3001, () => {
   console.log("Server is Running on PORT - 3001");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // app.get("/todo", (req, res) => {
 //   TodoModel.find()

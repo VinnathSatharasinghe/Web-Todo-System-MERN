@@ -41,9 +41,6 @@ h3 {
   font-size: 28px;
   margin-bottom: 60px;
   color: whitesmoke;
-  width: 40%;
-  margin-top: 30px;
-  margin-left: 235px;
   border-radius: 35px;
   border: 3px solid white;
   box-shadow: 5px 4px 4px 4px black;
@@ -53,26 +50,19 @@ h3 {
 }
 
 h4 {
-  font-size: 28px;
-  margin-bottom: 60px;
+  font-size: 25px;
   color: aliceblue;
-  width: 35%;
-  margin-top: 30px;
-  margin-left: 285px;
   border-radius: 35px;
   border: 3px solid white;
   box-shadow: 5px 4px 4px 4px black;
   font-family: 'Nosifer', sans-serif;
-  background:url('./pic/gh.jpg')
+
  
 }
 
 
 button {
-  color: white;
-  background-color:black;
   border-radius: 10px;
-  padding: -2px;
   font-family:cursive;
 
 }
@@ -91,9 +81,9 @@ button {
   background: url('./pic/gh.jpg');
 } */
 
-/* button:hover {
-  border-color: #646cff;
-} */
+button:hover {
+  border-color: red;
+}
 /* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

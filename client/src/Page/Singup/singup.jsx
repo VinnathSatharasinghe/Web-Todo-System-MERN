@@ -74,10 +74,10 @@ function singup() {
   return (
     <div>
       <Nav/>
-      <div className="mainx">
+      <div className="mainxx">
         <div className="sub">
           <Form onSubmit={handleSubmit}>
-            <h3>Register</h3>
+            <h4 type="reg">Register</h4>
 
             <Form.Group className="mb-3" controlId="formBasicUsername">
               <Form.Label>Username</Form.Label> 
@@ -131,7 +131,7 @@ function singup() {
               <div className="text-danger">{errors.password}</div>
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit11">
               Submit
             </Button>
           </Form>
@@ -149,7 +149,7 @@ function singup() {
             theme="dark"
           />
 
-          <Button variant="primary" type="login">
+          <Button variant="primary" type="login11">
             <a href="/home">Login</a>
           </Button>
         </div>

@@ -5,16 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 650px;
-
-    
   }
-  
-  .formx {
-    height: 100vh;
-    margin: 0;
-  }
-  
   
 
   .formx {
@@ -25,31 +16,40 @@
     font-weight: 700;
     border-radius: 30px;
     text-align: center;
-    margin-top: 50px;
-    padding: 10px;
-    width: 60%;
-    height: 80%;
-    margin-top: 80px;
-    border: 4px solid black;
+    padding: 80px;
+    width: 800px;
+    height: 560px;
+    margin-top: 30px;
+    border: 4px solid purple;
     border-radius: 199px;
     background: url('../../pic/gh.jpg');
+  }
+
+  h4[type="login"] {
+    width: 350px;
+    height: 50px;
+    font-size: 25px;
+    margin-bottom: 40px;
+    margin-left: 140px;
+    color: aliceblue;
+    border: 3px solid white;
+    font-family: 'Nosifer', sans-serif;
+    box-shadow: 5px 4px 4px 4px black;
+    background:url('../../pic/gh.jpg')
   }
   
 
   input[type="password"]::placeholder,
   input[type="text"]::placeholder {
     font-weight: 300;
-    padding: 30px;
+    padding: 100px;
     color: wheat;
-    background: url('../../pic/gh.jpg');
-    
   }
 
 
   input[type="text"],
-  input[type="email"],
   input[type="password"] {
-    width: 35%;
+    width: 50%;
     padding: 10px;
     margin: 11px;
     border-radius: 15px;
@@ -61,25 +61,25 @@
     
   }
   
-  Button[type="submit"],
-  Button[type="login"]
+  Button[type="submit2"],
+  Button[type="login2"]
    {
+    width: 150px;
+    height: 41px;
     font-size: 18px;
-    background: url('../../pic/gh.jpg');
-    /* background-color: transparent; */
-    width: 15%;
-    border-radius: 15px;
-    color: black;
-    border: 2px solid black;
-    margin-top: 40px;
-    box-shadow: 5px 4px 4px 4px whi;
+    color: wheat;
     font-weight: 300;
+    margin-top: 40px;
+    border-radius: 60px;
+    background: transparent;
+    border: 2px solid black;
+    background: url('../../pic/gh.jpg');
     font-family: 'Nosifer', sans-serif;
-    box-shadow: 1px 2px 9px 5px white;
+    box-shadow: 1px 2px 4px 5px white;
     
   }
   
-  @media (max-width: 790px) {
+  @media (max-width: 890px) {
 
     .mainx {
       display: flex;
@@ -87,6 +87,27 @@
       justify-content: center;
       align-items: center;
       
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 40%;
+      padding: 10px;
+      margin: 11px;
+      border-radius: 15px;
+      background-color: transparent;
+      border: 2px solid black;
+      border-radius: 51px;
+      background:url('../pic/OIP.jpg');
+      box-shadow: 1px 2px 9px 5px white;
+      
+    }
+
+    input[type="password"]::placeholder,
+    input[type="text"]::placeholder {
+      font-weight: 300;
+      padding: 80px;
+      color: white;
     }
 
     .formx {
@@ -102,20 +123,20 @@
       
     }
 
-    h4 {
+    h4[type="login"] {
+
       font-size: 25px;
       margin-bottom: 40px;
       color: aliceblue;
       width: 35%; 
-      margin-top: 30px;
-      margin-left: 220px;
+      margin-top: 50px;
+      margin-left: 230px;
       border-radius: 35px;
       border: 3px solid white;
       box-shadow: 5px 4px 4px 4px black;
       font-family: 'Nosifer', sans-serif;
 
     }
-
 
   }
   

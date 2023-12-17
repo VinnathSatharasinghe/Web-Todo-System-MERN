@@ -1,10 +1,10 @@
 /* Center the content vertically and horizontally */
-.main {
+.mainy {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background:url('./pic/OIP.jpg');
+    /* background:url('./pic/OIP.jpg'); */
 
     
   }
@@ -17,19 +17,27 @@
 
   .sub {
     height: 100vh;
-    margin: 0;
-    width: 800px;
-    height: 620px;
-    background:url('../src/pic/pic2.jpg');
+    width: 740px;
+    height: 580px;
     align-items: center;
     text-align: center;
-    margin-top: -10px;
+    margin-top: 20px;
     padding: 10px;
-    /* width: 45%;
-    height: 85%; */
     border: 4px solid black;
-    border-radius: 199px;
+    border-radius: 119px;
+    background:url('../../pic/gh.jpg')
     
+  }
+
+  h4[type="todo"] {
+    width: 55%;
+    margin-top: 50px;
+    margin-left: 185px;
+    border-radius: 35px;
+    border: 3px solid white;
+    box-shadow: 5px 4px 4px 4px black;
+    font-family: 'Nosifer', sans-serif;
+    background:url('../../pic/gh.jpg')
   }
 
   a {
@@ -50,16 +58,15 @@
   Button[type="login"]
    {
     font-size: 18px;
-    background:url('../src//pic/pic2.jpg');
     background-color: transparent;
-    width: 20%;
+    width: 25%;
     border-radius: 25px;
+    margin: 10px;
     color: whitesmoke;
-    margin-top: 40px;
+    margin-left: 10px;
     box-shadow: 5px 4px 4px 4px white;
     font-family: 'Nosifer', sans-serif;
-    box-shadow: 1px 2px 4px 5px white;
-    background:url('../pic/rfr.jpg');
+    background:url('../../pic/gh.jpg');
     transform: translateY(6);
     transition: 0.6s;
 
@@ -67,23 +74,25 @@
   
   input[type="work1"] 
   {
-    width: 55%;
+    width: 45%;
+    height: 10%;
     padding: 10px;
     margin: 11px;
     background-color: transparent;
-    margin-top: -200px;
-    border-radius: 15px;
-    border: 2px solid red;
+    border-radius: 10px;
+    border: 3px solid purple;
     border-radius: 51px;
     box-shadow: 1px 2px 4px 5px white;
+    background:url('../../pic/gh.jpg')
+    
   }
 
 
 
   input[type="work1"]::placeholder {
     color: white;
-    font-weight: 700;
-    padding: 160px;
+    font-weight: 300;
+    padding: 16px;
     
   }
 
@@ -94,19 +103,19 @@
       width: 600px;
       height: 570px;
       padding: 10px;
-      margin-top: -40px;
+      margin-top: 30px;
     }
 
-    h3 {
+    h4[type="todo"] {
 
       margin-bottom: 30px;
       width: 55%;
-      margin-left: 135px;
+      margin-left: 145px;
       border-radius: 35px;
       border: 3px solid white;
       box-shadow: 5px 4px 4px 4px black;
       font-family: 'Nosifer', sans-serif;
-      background:url('./pic/gh.jpg')
+      background:url('../../pic/gh.jpg')
     }
 
   
@@ -118,8 +127,8 @@
 
     input[type="work1"]::placeholder {
       color: white;
-      font-weight: 700;
-      padding: 90px;
+      font-weight: 300;
+      padding: 10px;
       
     }
     
@@ -128,9 +137,10 @@
       padding: -2px;
       width: 30%;
       margin-top: 31px;
+      transition: 0.6s;
       transform: translateY(6px);
-      transition: 0.6s
     }
+
     Button[type="submit"]:hover,
     Button[type="login"]:hover {
       color: orange;

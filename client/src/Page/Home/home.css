@@ -22,7 +22,7 @@
     border-radius: 20%;
     padding: -41px 0px 51px 0px;
     margin-bottom: 35px;
-    background: url('../../pic/gh.jpg');
+    background: url('../../pic/pic2.jpg');
     border: 6px solid black;
     box-shadow: 1px 2px 11px 6px white;
     
@@ -127,6 +127,8 @@ header ul li a:hover {
     margin: 40px 0;
     font-weight: 600;
     justify-content: space-around;
+    background: url('../../pic/gh.jpg');
+    margin: 50px;
   }
   
   .feature {
@@ -156,6 +158,8 @@ header ul li a:hover {
     padding: 10px 0;
     margin-top: 20px;
     font-family: 'Nosifer', sans-serif;
+    background: url('../../pic/gh.jpg');
+    box-shadow: 2px 4px 7px 5px white;
     
   }
 

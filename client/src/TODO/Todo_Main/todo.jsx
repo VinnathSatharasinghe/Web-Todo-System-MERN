@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
 import Nav from "../../Page/Navbar/Navbar";
 import "../Todo_Main/todo_.css";
+import { useNavigate } from "react-router-dom";
 
 function todo() {
   const location = useLocation();
@@ -15,6 +16,8 @@ function todo() {
 
   const [body, setBody] = useState();
   const [title, setTitle] = useState();
+
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
     title: "",
@@ -33,7 +36,13 @@ function todo() {
         axios
           .post("http://localhost:3001/addtask", { name, title, body })
           .then((result) => {
-            // dispatch(addTodos(result.data));
+            navigate("/todo_personal", {
+              state: {
+                title: result.data.name,
+                body: result.data.email,
+                id: result.data.id,
+              },
+            });
             console.log(result);
             toast.success("Todo Successfully Added!");
           })
@@ -46,18 +55,23 @@ function todo() {
     }
   };
 
+  const handleSubmit11 = (e) => {
+    e.preventDefault();
+    
+  };
+
   return (
     <div>
       <Nav />
-      <div className="mainx">
+      <div className="mainy">
         <div className="sub">
           <Form onSubmit={handleSubmit}>
-            <h3>Todo</h3>
+            <h4 type="todo">Todo</h4>
             <Form.Group className="mb-3" controlId="formBasicUsername">
               <Form.Label>NAME :</Form.Label>
 
               <input
-                type="text"
+                type="work1"
                 placeholder=""
                 autoComplete="off"
                 name="name"
@@ -70,7 +84,7 @@ function todo() {
               <Form.Label> Id_user :</Form.Label>
 
               <input
-                type="text"
+                type="work1"
                 placeholder=""
                 autoComplete="off"
                 name="name"
@@ -84,7 +98,7 @@ function todo() {
               <Form.Label>TITLE :</Form.Label>
               <input
                 id="title"
-                type="text"
+                type="work1"
                 placeholder="Enter Title"
                 autoComplete="off "
                 name="title"
@@ -99,7 +113,7 @@ function todo() {
               <Form.Label>BODY :</Form.Label>
               <input
                 id="body"
-                type="text"
+                type="work1"
                 placeholder="Enter Body"
                 autoComplete="off "
                 name="body"
@@ -114,7 +128,6 @@ function todo() {
               Todo
             </Button>
           </Form>
-          <br />
 
           <ToastContainer
             position="bottom-right"
@@ -130,9 +143,8 @@ function todo() {
           />
 
           <Button variant="primary" type="submit">
-            <a href="/todo_personal">User</a>
+            <a href="/user_list">User</a>
           </Button>
-          <br />
           <Button variant="primary" type="submit">
             <a href="/todo_list">List</a>
           </Button>

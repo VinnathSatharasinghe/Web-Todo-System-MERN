@@ -12,7 +12,7 @@ function Home() {
             <ul>
               <li>
                 <button className="home-btn">
-                  <a href="#home">Home</a>
+                  <a href="/">Home</a>
                 </button>
               </li>
               <li>
@@ -30,21 +30,21 @@ function Home() {
         </header>
         <main>
           <section className="hero">
-            <h1>Welcome to Our Impressive Website</h1>
-            <p>Your go-to source for everything amazing.</p>
+            <h1>Welcome to Your Todo Application</h1>
+            <p>Task Creation and Organization</p>
           </section>
           <section className="features">
             <div className="feature">
-              <h2>Feature 1</h2>
-              <p>Some cool feature description.</p>
+              <h2>Context Analysis</h2>
+              <p>Implement a system that analyzes the context of each task, considering factors such as location, time, and priority.</p>
             </div>
             <div className="feature">
-              <h2>Feature 2</h2>
-              <p>Another awesome feature description.</p>
+              <h2>Integration with Calendar</h2>
+              <p>Allow users to integrate their to-do list with their calendar, ensuring that tasks are synchronized with scheduled events.</p>
             </div>
             <div className="feature">
-              <h2>Feature 3</h2>
-              <p>Yet another fantastic feature description.</p>
+              <h2>Location-based Reminders</h2>
+              <p>Enable users to set reminders based on their geographical location. For example, remind them to pick up groceries when near a grocery store.</p>
             </div>
           </section>
         </main>

@@ -6,7 +6,9 @@ function CreativeNavbar() {
     <nav className="navbar">
       <div className="logo">
         <br />
-        <a href="/home">R E D U X - C A F E</a>
+        <a href="/home">T O D O</a>
+        
+        
       </div>
       <ul className="nav-links">
         <li>
@@ -14,6 +16,12 @@ function CreativeNavbar() {
         </li>
         <li>
           <a href="/gg">Login</a>
+        </li>
+        <li>
+          <a href="/sing">Singup</a>
+        </li>
+        <li>
+          <a href="/todo_list">Todo</a>
         </li>
       </ul>
     </nav>

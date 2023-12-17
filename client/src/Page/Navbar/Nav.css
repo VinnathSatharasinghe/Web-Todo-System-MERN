@@ -30,7 +30,8 @@
   .nav-links {
     list-style: none;
     display: flex;
-    font-weight: 800;  
+    font-weight: 800;
+    margin-left: 1100px;  
   }
 
   .nav-links li {
@@ -41,10 +42,20 @@
     text-decoration: none;
     color: whitesmoke;
     font-size: 18px;
-    
   }
 
   .nav-links li a:hover {
-    color: black;
-    transition: color 0.3s ease-in-out;
+    color: yellow;
+    transition: color 0.4s ease-in-out;
+  }
+
+  @media (max-width:800px) {
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      font-weight: 800;
+      margin-left: 400px;  
+    }
+    
   }
