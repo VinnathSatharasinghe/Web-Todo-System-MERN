@@ -23,8 +23,8 @@ function Login() {
 
         if (result.data.message === "nouser") {
           toast.error("Login Failed. No User existed.", { autoClose: 5000 });
-        } else if (result.data.message === "success") {
-          toast.success("Login successful!", { autoClose: 5000 });
+        } else if (result.data.message === "Login success") {
+          toast.success("Login successful!", { autoClose: 15000 });
           // navigate("/afterlog", { state: { user: result.data.others } });
           navigate("/todo", {
             state: {

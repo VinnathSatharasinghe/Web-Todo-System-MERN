@@ -60,7 +60,7 @@ function todo() {
   useEffect(() => {
     // Fetch todo list data including user information
     axios
-      .get("http://localhost:3001/viewuser")
+      .get('http://localhost:3001/viewuser')
       .then((response) => {
         setTodos(response.data);
       })
@@ -87,7 +87,7 @@ function todo() {
       <div className="mainy">
         <div className="sub">
           <Form onSubmit={handleSubmit}>
-            <h4 type="todo">Todo</h4>
+            <h4 type="todo">Hi {name}</h4>
             <Form.Group className="mb-3" controlId="formBasicUsername">
               <Form.Label>NAME :</Form.Label>
 
@@ -102,7 +102,7 @@ function todo() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicUsername">
-              <Form.Label> Id_user :</Form.Label>
+              <Form.Label>U-ID :</Form.Label>
 
               <input
                 type="work1"
@@ -116,11 +116,11 @@ function todo() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicTodo">
-              <Form.Label>TITLE :</Form.Label>
+              <Form.Label>TASK :</Form.Label>
               <input
                 id="title"
                 type="work1"
-                placeholder="Enter Title"
+                placeholder="Enter Task"
                 autoComplete="off "
                 name="title"
                 value={title}
@@ -176,13 +176,14 @@ function todo() {
 
       <div className="mainall">
         <div className="box1">
-          <h2>Todo List</h2>
+          <h2>User Todo</h2>
           <br />
           <table className="tablex">
             <thead>
               <tr className="test">
                 <th>User Name</th>
                 <th>User Email</th>
+                <th>User List</th>
                 <th></th>
               </tr>
             </thead>
@@ -192,6 +193,7 @@ function todo() {
                   {/* <td>{todo.user11}</td> */}
                   <td>{todo.name}</td>
                   <td>{todo.email}</td>
+                  <td>{todo.list}</td>
                   <td>
                     <Link to={`/edit/${todo.id}`} className="btnx1">
                       Edit

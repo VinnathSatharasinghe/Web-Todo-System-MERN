@@ -1,4 +1,3 @@
-// // import "@fortawesome/fontawesome-free/css/all.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./Page/Home/Home";

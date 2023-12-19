@@ -37,7 +37,7 @@ function TodoList() {
       <Nav />
       <div className="mainall">
         <div className="box1">
-          <h2>Todo List</h2>
+          <h3>User List</h3>
           <br />
           <table className="tablex">
             <thead>
@@ -50,7 +50,6 @@ function TodoList() {
             <tbody>
               {todos.map((todo) => (
                 <tr key={todo._id}>
-                  {/* <td>{todo.user11}</td> */}
                   <td>{todo.name}</td>
                   <td>{todo.email}</td>
                   <td>

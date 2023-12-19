@@ -48,7 +48,7 @@
     margin-left: 65px;
     border-radius: 100px;
     border: 5px solid wheat;
-    background: url('../pic//pic2.jpg');
+    background: url('../../../pic/pic2.jpg');
     box-shadow: 2px 4px 5px 6px red ;
 
   }
@@ -76,7 +76,3 @@
 
 
   
-
-  /* .test {
-    color: white;
-  } */

@@ -2,8 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
-// import { addEmployees } from "./redux/userSlice";
-// import {useDispatch} from 'react-redux'
+
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,8 +15,6 @@ function singup() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  // const dispatch = useDispatch()
 
   
   const [errors, setErrors] = useState({
@@ -159,21 +156,3 @@ function singup() {
 }
 
 export default singup;
-
-
-
-// if (result.data === "null") {
-//   toast.error("Login Failed. No record existed.", { autoClose: 3000 });
-//   return;
-// } else if (result.data === "success") {
-//   toast.success("Login successful!", { autoClose: 3000 });
-//   // navigate("./singup.jsx");
-// } else if (result.data === "nopass") {
-//   toast.error("Login Failed. Incorrect Password");
-//   return;
-// } else {
-//   toast.error("Login Failed. No record existed.");
-//   return;
-// }
-
-// navigate("./Login.jsx");

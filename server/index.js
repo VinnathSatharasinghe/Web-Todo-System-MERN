@@ -11,8 +11,6 @@ const List = require("./mongo_learn/models/todo");
 const TodoModel = require("./mongo_learn/models/todo");
 const UserModel = require("./mongo_learn/models/user");
 
-// const auth = require("./mongo_learn/auth(index)");
-// app.use("/api/v1", auth);
 
 mongoose.connect(
   "mongodb+srv://vinnath:acerlaptop111@cluster0.acbjy23.mongodb.net/?retryWrites=true&w=majority"
@@ -42,44 +40,35 @@ app.post("/logingg", async (req, res) => {
     if (!user) {
       res.status(400).json({ message: "nouser" });
       console.log("no user");
-    }
-
-    const isPasswordCorrect = bcrypt.compareSync(
-      req.body.password,
-      user.password
-    );
-
-    if (!isPasswordCorrect) {
-      res.status(400).json({ message: "nopass" });
-      console.log("no pass");
     } else {
-      const { password, ...others } = user._doc;
-      res.status(200).json({
-        message: "Login success",
-        name: user.name,
-        email: user.email,
-        id: user.id,
-        list: user.list,
+      const isPasswordCorrect = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
 
-        // others,
-        // user: {
-        //   name: user.name,
-        //   email: user.email,
-        //   id: user._id,
-        // },
-      });
+      if (!isPasswordCorrect) {
+        res.status(400).json({ message: "nopass" });
+        console.log("no pass");
+      } else {
+        const { password, ...others } = user._doc;
+        res.status(200).json({
+          message: "Login success",
+          // others,
+          name: user.name,
+          email: user.email,
+          id: user.id,
+          list: user.list,
 
-      // res.status(200).json({
-      //   message: "success",
-      //   others,
-      // });
-
-      // res.status(200).json({ message: "success" });
-      // const { password, ...others } = user._doc;
-      // res.status(200).json({ others });
-      // console.log("ok");
-      // res.status(200).json({ message: "success" });
+        });
+      }
     }
+
+    // res.status(200).json({ message: "success" });
+    // const { password, ...others } = user._doc;
+    // res.status(200).json({ others });
+    // console.log("ok");
+    // res.status(200).json({ message: "success" });
+
   } catch (error) {
     res.status(400).json({ message: "Something Wrong" });
     console.log("something error");
@@ -111,7 +100,6 @@ app.post("/addtask", async (req, res) => {
   }
 });
 
-
 app.put("/updatetask/:id", async (req, res) => {
   try {
     const { title, body, name } = req.body;
@@ -127,7 +115,7 @@ app.put("/updatetask/:id", async (req, res) => {
   }
 });
 
-app.delete("/deleteuser/:id", async (req, res) => {
+app.delete("/deletetask/:id", async (req, res) => {
   try {
     const { id } = req.body;
     const existingUser = await User.findOne({ id });
@@ -141,7 +129,6 @@ app.delete("/deleteuser/:id", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
 
 app.delete("/deletetask/:id", async (req, res) => {
   try {
@@ -158,8 +145,6 @@ app.delete("/deletetask/:id", async (req, res) => {
   }
 });
 
-
-
 app.get("/viewuser", async (req, res) => {
   const user = await User.find({ user: User });
   res.status(200).json(user);
@@ -170,16 +155,6 @@ app.get("/viewtask", async (req, res) => {
   res.status(200).json(list);
 });
 
-// app.get("/viewuser/:id", async (req, res) => {
-//   const user = await User.find({ user: req.params.id });
-//   res.status(200).json({ User: user });
-// });
-
-// app.get("/viewuser/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const list = await UserModel.find({ _id: id });
-//   res.status(200).json({ List: list });
-// });
 
 app.get("/viewtask/:id", async (req, res) => {
   try {
@@ -194,183 +169,36 @@ app.get("/viewtask/:id", async (req, res) => {
 });
 
 app.get("/viewuser/:id", async (req, res) => {
-  try{
+  try {
     const id = req.params.id;
     const user = await UserModel.find({ _id: id });
     res.status(200).json({ user: user });
     console.log(" user id found");
-
   } catch {
     res.status(200).json({ message: "No one found" });
     console.log("no user related to id");
   }
-
 });
 
-
-
-
-
-// app.get("/viewtask1/:id", async (req, res) => {
-//   const list = await List.find({user :req.params.id});
-//   res.status(200).json({ List: list});
-// });
-
-app.get("/viewtask2/:id", async (req, res) => {
-  const list = await List.find({ user11: req.params.id }).sort({
-    createdAt: -1,
-  });
-  if (list.length !== 0) {
-    res.status(200).json({ list: list });
-  } else {
-    res.status(200).json({ message: "No Tasks In The List" });
-  }
-});
 
 app.listen(3001, () => {
   console.log("Server is Running on PORT - 3001");
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app.get("/todo", (req, res) => {
-//   TodoModel.find()
-//     .then((todos) => res.json(todos))
-//     .catch((err) => res.json(err));
+// app.get("/viewuser/:id", async (req, res) => {
+//   const user = await User.find({ user: req.params.id });
+//   res.status(200).json({ User: user });
 // });
 
-// app.post("/todo/find/:id", (req, res) => {
+// app.get("/viewuser/:id", async (req, res) => {
 //   const id = req.params.id;
-//   TodoModel.create({_id: id})
-//     .then((todos) => res.json(todos))
-//     .catch((err) => res.json(err));
+//   const list = await UserModel.find({ _id: id });
+//   res.status(200).json({ List: list });
 // });
 
-// app.post("/login", (req, res) => {
-//   const { name, password } = req.body;
-//   UserModel.findOne({ name: name }).then((user) => {
-//     if (user) {
-//       if (user.password === password) {
-//         res.json("success");
-//       } else {
-//         res.json("nopass");
-//       }
-//     } else {
-//       res.json("null");
-//     }
-//   });
-// });
 
-// app.post("/register", (req, res) => {
-//   UserModel.create(req.body)
-//     .then((employees) => res.json(employees))
-//     .catch((err) => res.json(err));
-// });
-
-// app.put("/update/:id", (req, res) => {
-//   const id = req.params.id;
-//   UserModel.findByIdAndUpdate(
-//     { _id: id },
-//     {
-//       name: req.body.name,
-//       email: req.body.email,
-//       password: req.body.password,
-//       work: req.body.work,
-//     }
-//   )
-//     .then((employee) => res.json(employee))
-//     .catch((err) => res.json(err))
-// });
-
-// app.put("/view/:id", (req, res) => {
-//   const id = req.params.id;
-//   UserModel.findByIdAndUpdate(
-//     { _id: id },
-//     {
-//       name: req.body.name,
-//       email: req.body.email,
-//       password: req.body.password,
-//       work: req.body.work,
-//     }
-//   )
-//     .then((employee) => res.json(employee))
-//     .catch((err) => res.json(err));
-// });
-
-// app.delete("/deleteemployee/:id", (req, res) => {
-//   const id = req.params.id;
-//   UserModel.findByIdAndDelete({ _id: id })
-//     .then((response) => res.json(response))
-//     .catch((err) => res.json(err));
-// });
-
-// app.get("/todo/find/view/:id", (req, res) => {
-//   const id = req.params.id;
-//   TodoModel.find({_id: id})
-//     .then((todos) => res.json(todos))
-//     .catch((err) => res.json(err));
-// });
-
-// app.post("/todo/add", (req, res) => {
-//   TodoModel.create(req.body)
-//     .then((todos) => res.json(todos))
-//     .catch((err) => res.json(err));
-// });
-
-// app.delete("/todo/delete/:id", (req, res) => {
-//   const id = req.params.id;
-//   TodoModel.findByIdAndDelete({ _id: id })
-//     .then((response) => res.json(response))
-//     .catch((err) => res.json(err));
-// });
-
-// app.put("/todo/update/:id", (req, res) => {
-//   const id = req.params.id;
-//   TodoModel.findByIdAndUpdate(
-//     { _id: id },
-//     {
-//       name: req.body.name,
-//       work: req.body.work,
-//     }
-//   )
-//     .then((todo) => res.json(todo))
-//     .catch((err) => res.json(err));
-// });
-
-// app.put("/todo/view/:id", (req, res) => {
-//   const id = req.params.id;
-//   TodoModel.findByIdAndUpdate(
-//     { _id: id },
-//     {
-//       name: req.body.name,
-//       work: req.body.work,
-//     }
-//   )
-//     .then((todo) => res.json(todo))
-//     .catch((err) => res.json(err));
+// app.get("/viewtask1/:id", async (req, res) => {
+//   const list = await List.find({user :req.params.id});
+//   res.status(200).json({ List: list});
 // });

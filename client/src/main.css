@@ -57,9 +57,7 @@ h4 {
   box-shadow: 5px 4px 4px 4px black;
   font-family: 'Nosifer', sans-serif;
 
- 
 }
-
 
 button {
   border-radius: 10px;
@@ -68,36 +66,7 @@ button {
 }
 
 
-/* button {
-  border-radius: 81px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: white;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  background: url('./pic/gh.jpg');
-} */
-
 button:hover {
   border-color: red;
 }
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
