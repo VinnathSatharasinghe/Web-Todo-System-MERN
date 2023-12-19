@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Nav from "../../../Page/Navbar/Navbar";
 import axios from "axios";
 import "../../../Page/Login/Login.css";
+import "../todo-list/list.css";
+import { Link } from "react-router-dom";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -9,7 +11,7 @@ function TodoList() {
   useEffect(() => {
     // Fetch todo list data including user information
     axios
-      .get("http://localhost:3001/viewtask1")
+      .get("http://localhost:3001/viewtask")
       .then((response) => {
         setTodos(response.data);
       })
@@ -18,7 +20,17 @@ function TodoList() {
       });
   }, []);
 
-  
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/deletetask/${id}`);
+      // Refresh the todo list after deletion
+      const updatedTodos = todos.filter((todo) => todo._id !== id);
+      setTodos(updatedTodos);
+      console.error("OK:");
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
 
   return (
     <div>
@@ -30,8 +42,9 @@ function TodoList() {
           <table className="tablex">
             <thead>
               <tr className="test">
-                <th>Title</th>
-                <th>Body</th>
+                <th>Todo Title</th>
+                <th>Todo Body</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -40,6 +53,22 @@ function TodoList() {
                   {/* <td>{todo.user11}</td> */}
                   <td>{todo.title}</td>
                   <td>{todo.body}</td>
+                  <td>
+                    <Link to={`/edit/${todo.id}`} className="btnx1">
+                      Edit
+                    </Link>
+                    <br />
+                    <button
+                      onClick={() => handleDelete(todo._id)}
+                      className="btnx1"
+                    >
+                      Delete
+                    </button>
+                    <br />
+                    <Link to={`/view/${todo.id}`} className="btnx1">
+                      View
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

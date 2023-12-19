@@ -7,8 +7,8 @@ import Singup from "./Page/Singup/singup";
 import Todo from "./TODO/Todo_Main/todo";
 import Todo_list from "./TODO/components/todo-list/todo_list";
 import Todo_personal from "./TODO/components/todo-list/todo_personal";
-import Test from '../test'
-import Ulist from './TODO/components/todo-list/user_list'
+import Test from "../test";
+import User from "./TODO/components/todo-list/todo_user"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
     element: <Test />,
   },
   {
-    path: "/user_list",
-    element: <Ulist />,
+    path: "/user",
+    element: <User />,
   },
   {
     path: "/home",

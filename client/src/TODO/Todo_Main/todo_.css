@@ -16,7 +16,7 @@
   
 
   .sub {
-    height: 100vh;
+    height: 120px;
     width: 740px;
     height: 580px;
     align-items: center;
@@ -78,6 +78,7 @@
     height: 10%;
     padding: 10px;
     margin: 11px;
+    margin-top: 30px;
     background-color: transparent;
     border-radius: 10px;
     border: 3px solid purple;

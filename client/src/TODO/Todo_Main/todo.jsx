@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import Link from "react-bootstrap/Form";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import Nav from "../../Page/Navbar/Navbar";
 import "../Todo_Main/todo_.css";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 function todo() {
   const location = useLocation();
@@ -16,6 +17,7 @@ function todo() {
 
   const [body, setBody] = useState();
   const [title, setTitle] = useState();
+  const [todos, setTodos] = useState([]);
 
   const navigate = useNavigate();
 
@@ -55,9 +57,28 @@ function todo() {
     }
   };
 
-  const handleSubmit11 = (e) => {
-    e.preventDefault();
-    
+  useEffect(() => {
+    // Fetch todo list data including user information
+    axios
+      .get("http://localhost:3001/viewuser")
+      .then((response) => {
+        setTodos(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching todo list:", error);
+      });
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/deletetask/${id}`);
+      // Refresh the todo list after deletion
+      const updatedTodos = todos.filter((todo) => todo._id !== id);
+      setTodos(updatedTodos);
+      console.error("OK:");
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
   return (
@@ -143,11 +164,54 @@ function todo() {
           />
 
           <Button variant="primary" type="submit">
-            <a href="/user_list">User</a>
+            <a href="/user">User</a>
           </Button>
           <Button variant="primary" type="submit">
             <a href="/todo_list">List</a>
           </Button>
+        </div>
+      </div>
+      <br />
+      <br />
+
+      <div className="mainall">
+        <div className="box1">
+          <h2>Todo List</h2>
+          <br />
+          <table className="tablex">
+            <thead>
+              <tr className="test">
+                <th>User Name</th>
+                <th>User Email</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {todos.map((todo) => (
+                <tr key={todo._id}>
+                  {/* <td>{todo.user11}</td> */}
+                  <td>{todo.name}</td>
+                  <td>{todo.email}</td>
+                  <td>
+                    <Link to={`/edit/${todo.id}`} className="btnx1">
+                      Edit
+                    </Link>
+                    <br />
+                    <button
+                      onClick={() => handleDelete(todo._id)}
+                      className="btnx1"
+                    >
+                      Delete
+                    </button>
+                    <br />
+                    <Link to={`/view/${todo.id}`} className="btnx1">
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

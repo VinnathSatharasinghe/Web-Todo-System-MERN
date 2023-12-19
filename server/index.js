@@ -55,7 +55,7 @@ app.post("/logingg", async (req, res) => {
     } else {
       const { password, ...others } = user._doc;
       res.status(200).json({
-        message: "success",
+        message: "Login success",
         name: user.name,
         email: user.email,
         id: user.id,
@@ -127,10 +127,26 @@ app.put("/updatetask/:id", async (req, res) => {
   }
 });
 
+app.delete("/deleteuser/:id", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const existingUser = await User.findOne({ id });
+    if (existingUser) {
+      await User.findByIdAndUpdate(req.params.id).then(() =>
+        res.status(200).json({ message: "User Deleted" })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
 app.delete("/deletetask/:id", async (req, res) => {
   try {
-    const { name } = req.body;
-    const existingUser = await User.findOne({ name });
+    const { id } = req.body;
+    const existingUser = await User.findOne({ id });
     if (existingUser) {
       await List.findByIdAndUpdate(req.params.id).then(() =>
         res.status(200).json({ message: "Task Deleted" })
@@ -138,18 +154,21 @@ app.delete("/deletetask/:id", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+
 
 app.get("/viewuser", async (req, res) => {
   const user = await User.find({ user: User });
   res.status(200).json(user);
 });
 
-// app.get("/viewtask1", async (req, res) => {
-//   const list = await List.find({ user: User });
-//   res.status(200).json(list);
-// });
+app.get("/viewtask", async (req, res) => {
+  const list = await List.find({ user: User });
+  res.status(200).json(list);
+});
 
 // app.get("/viewuser/:id", async (req, res) => {
 //   const user = await User.find({ user: req.params.id });
@@ -190,19 +209,7 @@ app.get("/viewuser/:id", async (req, res) => {
 
 
 
-// app.get("/viewtask1/:id", async (req, res) => {
-//   try {
-//     const userId = req.params.id;
 
-//     // Assuming your List model has a 'user' field representing the user ID
-//     const list = await List.find({ user: userId });
-
-//     res.status(200).json({ List: list });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
 
 // app.get("/viewtask1/:id", async (req, res) => {
 //   const list = await List.find({user :req.params.id});

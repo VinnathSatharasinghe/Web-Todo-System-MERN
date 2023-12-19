@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../../Page/Login/Login.css";
 import Nav from "../../../Page/Navbar/Navbar";
 import { useLocation } from "react-router-dom";
+import "../todo-list/list.css"
 
 function SodoList() {
   const [sodos, setSodos] = useState([]);
