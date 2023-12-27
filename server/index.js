@@ -11,7 +11,6 @@ const List = require("./mongo_learn/models/todo");
 const TodoModel = require("./mongo_learn/models/todo");
 const UserModel = require("./mongo_learn/models/user");
 
-
 mongoose.connect(
   "mongodb+srv://vinnath:acerlaptop111@cluster0.acbjy23.mongodb.net/?retryWrites=true&w=majority"
 );
@@ -58,7 +57,6 @@ app.post("/logingg", async (req, res) => {
           email: user.email,
           id: user.id,
           list: user.list,
-
         });
       }
     }
@@ -68,7 +66,6 @@ app.post("/logingg", async (req, res) => {
     // res.status(200).json({ others });
     // console.log("ok");
     // res.status(200).json({ message: "success" });
-
   } catch (error) {
     res.status(400).json({ message: "Something Wrong" });
     console.log("something error");
@@ -85,11 +82,13 @@ app.post("/addtask", async (req, res) => {
       await list.save().then(() =>
         res.status(200).json({
           message: "success11",
+          // id: list.user11,
           title: list.title,
           body: list.body,
-          email: existingUser.email,
           id: existingUser._id,
+          email: existingUser.email,
           name: existingUser.name,
+
         })
       );
       existingUser.list.push(list);
@@ -100,16 +99,35 @@ app.post("/addtask", async (req, res) => {
   }
 });
 
-app.put("/updatetask/:id", async (req, res) => {
+app.put("/update_task/:id", async (req, res) => {
   try {
-    const { title, body, name } = req.body;
-    const existingUser = await User.findOne({ name });
-    if (existingUser) {
-      const list = await List.findByIdAndUpdate(req.params.id, { title, body });
-      list
-        .save()
-        .then(() => res.status(200).json({ message: "Task Updated!" }));
-    }
+    const { title, body } = req.body;
+    const list = await List.findByIdAndUpdate(req.params.id, { title, body });
+    list.save().then(() =>
+      res.status(200).json({
+        title: list.title,
+        body: list.body,
+        message: "Task Updated!",
+      })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.put("/update/user/:id", async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const user = await User.findByIdAndUpdate(req.params.id, { name, email });
+    user.save().then(() =>
+      res.status(200).json({
+        message: "User Updated!",
+        name: user.name,
+        email: user.email,
+      })
+   
+    );
+    console.log("User Updated!")
   } catch (error) {
     console.log(error);
   }
@@ -118,24 +136,9 @@ app.put("/updatetask/:id", async (req, res) => {
 app.delete("/deletetask/:id", async (req, res) => {
   try {
     const { id } = req.body;
-    const existingUser = await User.findOne({ id });
+    const existingUser = await List.findOne({ id });
     if (existingUser) {
-      await User.findByIdAndUpdate(req.params.id).then(() =>
-        res.status(200).json({ message: "User Deleted" })
-      );
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-
-app.delete("/deletetask/:id", async (req, res) => {
-  try {
-    const { id } = req.body;
-    const existingUser = await User.findOne({ id });
-    if (existingUser) {
-      await List.findByIdAndUpdate(req.params.id).then(() =>
+      await List.findByIdAndDelete(req.params.id).then(() =>
         res.status(200).json({ message: "Task Deleted" })
       );
     }
@@ -145,9 +148,19 @@ app.delete("/deletetask/:id", async (req, res) => {
   }
 });
 
-app.get("/viewuser", async (req, res) => {
-  const user = await User.find({ user: User });
-  res.status(200).json(user);
+app.delete("/deleteuser/:id", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const existingUser = await User.findOne({ id });
+    if (existingUser) {
+      await User.findByIdAndDelete(req.params.id).then(() =>
+        res.status(200).json({ message: "User Deleted" })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 app.get("/viewtask", async (req, res) => {
@@ -155,50 +168,54 @@ app.get("/viewtask", async (req, res) => {
   res.status(200).json(list);
 });
 
+app.get("/viewuser", async (req, res) => {
+  const user = await User.find({ user: User });
+  res.status(200).json(user);
+});
+
+// app.get("/viewtask/:id", async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const list = await TodoModel.find({ _id: id });
+//     res.status(200).json({
+//       list: list,
+//     });
+//     console.log("id found");
+//   } catch {
+//     res.status(200).json({ message: "No one found" });
+//     console.log("no one related to id");
+//   }
+// });
+
 
 app.get("/viewtask/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const list = await TodoModel.find({ _id: id });
-    res.status(200).json({ list: list });
+    const list = await TodoModel.find({ user11: id });
+    res.status(200).json({
+      list: list,
+      message: "Task Updated!",
+    });
     console.log("id found");
   } catch {
     res.status(200).json({ message: "No one found" });
-    console.log("mo one related to id");
+    console.log("no task related to id");
   }
 });
+
 
 app.get("/viewuser/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const user = await UserModel.find({ _id: id });
     res.status(200).json({ user: user });
-    console.log(" user id found");
+    console.log("user id found");
   } catch {
     res.status(200).json({ message: "No one found" });
     console.log("no user related to id");
   }
 });
 
-
 app.listen(3001, () => {
   console.log("Server is Running on PORT - 3001");
 });
-
-
-// app.get("/viewuser/:id", async (req, res) => {
-//   const user = await User.find({ user: req.params.id });
-//   res.status(200).json({ User: user });
-// });
-
-// app.get("/viewuser/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const list = await UserModel.find({ _id: id });
-//   res.status(200).json({ List: list });
-// });
-
-
-// app.get("/viewtask1/:id", async (req, res) => {
-//   const list = await List.find({user :req.params.id});
-//   res.status(200).json({ List: list});
-// });

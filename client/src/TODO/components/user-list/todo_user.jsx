@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../../Page/Navbar/Navbar";
 import axios from "axios";
-import "../../../Page/Login/Login.css";
-import "../todo-list/list.css";
+// import "../../../Page/Login/Login.css";
+// import "../todo-list/list.css";
 import { Link } from "react-router-dom";
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // Fetch todo list data including user information
     axios
       .get("http://localhost:3001/viewuser")
       .then((response) => {
-        setTodos(response.data);
+        setUsers(response.data);
       })
       .catch((error) => {
         console.error("Error fetching todo list:", error);
@@ -22,10 +21,9 @@ function TodoList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deletetask/${id}`);
-      // Refresh the todo list after deletion
-      const updatedTodos = todos.filter((todo) => todo._id !== id);
-      setTodos(updatedTodos);
+      await axios.delete(`http://localhost:3001/deleteuser/${id}`);
+      const updatedTodos = users.filter((user) => user._id !== id);
+      setUsers(updatedTodos);
       console.error("OK:");
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -48,25 +46,22 @@ function TodoList() {
               </tr>
             </thead>
             <tbody>
-              {todos.map((todo) => (
-                <tr key={todo._id}>
-                  <td>{todo.name}</td>
-                  <td>{todo.email}</td>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
                   <td>
-                    <Link to={`/edit/${todo.id}`} className="btnx1">
+                    <Link to={`/update/user/${user._id}`} className="btnx1">
                       Edit
                     </Link>
                     <br />
                     <button
-                      onClick={() => handleDelete(todo._id)}
+                      onClick={() => handleDelete(user._id)}
                       className="btnx1"
                     >
                       Delete
                     </button>
-                    <br />
-                    <Link to={`/view/${todo.id}`} className="btnx1">
-                      View
-                    </Link>
+               
                   </td>
                 </tr>
               ))}

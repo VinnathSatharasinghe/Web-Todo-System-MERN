@@ -42,7 +42,6 @@ function singup() {
         if (!password) {
           toast.error("Password is required");
         } else {
-          
           // newErrors.password = "";
 
           if (Object.values(newErrors).every((error) => error === "")) {

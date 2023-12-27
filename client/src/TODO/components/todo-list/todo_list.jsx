@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../../Page/Navbar/Navbar";
 import axios from "axios";
-import "../../../Page/Login/Login.css";
+// import "../../../Page/Login/Login.css";
 import "../todo-list/list.css";
 import { Link } from "react-router-dom";
 
@@ -48,11 +48,10 @@ function TodoList() {
             <tbody>
               {todos.map((todo) => (
                 <tr key={todo._id}>
-                  {/* <td>{todo.user11}</td> */}
                   <td>{todo.title}</td>
                   <td>{todo.body}</td>
                   <td>
-                    <Link to={`/edit/${todo.id}`} className="btnx1">
+                    <Link to={`/update/task/${todo._id}`} className="btnx1">
                       Edit
                     </Link>
                     <br />
@@ -62,10 +61,6 @@ function TodoList() {
                     >
                       Delete
                     </button>
-                    <br />
-                    <Link to={`/view/${todo.id}`} className="btnx1">
-                      View
-                    </Link>
                   </td>
                 </tr>
               ))}

@@ -36,7 +36,7 @@ function todo() {
     } else {
       if (Object.values(newErrors).every((error) => error === "")) {
         axios
-          .post("http://localhost:3001/addtask", { name, title, body })
+          .post("http://localhost:3001/addtask", { id, name, title, body })
           .then((result) => {
             navigate("/todo_personal", {
               state: {
@@ -60,19 +60,19 @@ function todo() {
   useEffect(() => {
     // Fetch todo list data including user information
     axios
-      .get('http://localhost:3001/viewuser')
+      .get(`http://localhost:3001/viewtask/${id}`)
       .then((response) => {
-        setTodos(response.data);
+        setTodos(response.data.list);
       })
       .catch((error) => {
         console.error("Error fetching todo list:", error);
       });
-  }, []);
+  }, [id]);
+
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3001/deletetask/${id}`);
-      // Refresh the todo list after deletion
       const updatedTodos = todos.filter((todo) => todo._id !== id);
       setTodos(updatedTodos);
       console.error("OK:");
@@ -97,7 +97,6 @@ function todo() {
                 autoComplete="off"
                 name="name"
                 defaultValue={name}
-                onChange={(e) => setName(e.target.value)}
                 disabled
               />
             </Form.Group>
@@ -110,7 +109,6 @@ function todo() {
                 autoComplete="off"
                 name="name"
                 defaultValue={id}
-                onChange={(e) => setName(e.target.value)}
                 disabled
               />
             </Form.Group>
@@ -120,7 +118,6 @@ function todo() {
               <input
                 id="title"
                 type="work1"
-                placeholder="Enter Task"
                 autoComplete="off "
                 name="title"
                 value={title}
@@ -135,7 +132,6 @@ function todo() {
               <input
                 id="body"
                 type="work1"
-                placeholder="Enter Body"
                 autoComplete="off "
                 name="body"
                 value={body}
@@ -171,31 +167,36 @@ function todo() {
           </Button>
         </div>
       </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <br />
       <br />
 
       <div className="mainall">
         <div className="box1">
-          <h2>User Todo</h2>
+          <h2>{name}'s Todo</h2>
           <br />
           <table className="tablex">
             <thead>
               <tr className="test">
-                <th>User Name</th>
-                <th>User Email</th>
-                <th>User List</th>
+                <th>Title</th>
+                <th>Body</th>
                 <th></th>
-              </tr>
+              </tr>.
             </thead>
             <tbody>
-              {todos.map((todo) => (
+            {todos.map((todo) => (
                 <tr key={todo._id}>
-                  {/* <td>{todo.user11}</td> */}
-                  <td>{todo.name}</td>
-                  <td>{todo.email}</td>
-                  <td>{todo.list}</td>
+                  <td>{todo.title}</td>
+                  <td>{todo.body}</td>
+           
                   <td>
-                    <Link to={`/edit/${todo.id}`} className="btnx1">
+                   
+                  <Link to={`/update/person/${todo._id}`} className="btnx1">
                       Edit
                     </Link>
                     <br />
@@ -205,10 +206,7 @@ function todo() {
                     >
                       Delete
                     </button>
-                    <br />
-                    <Link to={`/view/${todo.id}`} className="btnx1">
-                      View
-                    </Link>
+
                   </td>
                 </tr>
               ))}

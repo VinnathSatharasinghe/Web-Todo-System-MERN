@@ -21,11 +21,11 @@ function Login() {
       .then((result) => {
         console.log(result);
 
-        if (result.data.message === "nouser") {
+        if (result.data.message == "nouser") {
           toast.error("Login Failed. No User existed.", { autoClose: 5000 });
-        } else if (result.data.message === "Login success") {
-          toast.success("Login successful!", { autoClose: 15000 });
-          // navigate("/afterlog", { state: { user: result.data.others } });
+        } else if (result.data.message == "Login success") {
+          toast.success("Login successful!", { autoClose: 5000 });
+
           navigate("/todo", {
             state: {
               name: result.data.name,
@@ -33,7 +33,7 @@ function Login() {
               id: result.data.id,
             },
           });
-        } else if (result.data.message === "wpass") {
+        } else if (result.data.message == "nopass") {
           toast.error("Login Failed. Incorrect Password");
         } else {
           toast.error("Login Failed. No record existed.");
