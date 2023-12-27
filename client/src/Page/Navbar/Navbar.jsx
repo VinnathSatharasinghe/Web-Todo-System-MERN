@@ -23,6 +23,9 @@ function CreativeNavbar() {
         <li>
           <a href="/todo_list">Todo</a>
         </li>
+        <li>
+          <a href="/user">User</a>
+        </li>
       </ul>
     </nav>
   );

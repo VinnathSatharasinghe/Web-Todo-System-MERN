@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../../Page/Navbar/Navbar";
 import axios from "axios";
-// import "../../../Page/Login/Login.css";
 import "../todo-list/list.css";
 import { Link } from "react-router-dom";
 

@@ -53,7 +53,7 @@ function Login() {
               <Form.Label>Username</Form.Label>
               <br />
               <input
-                type="text"
+                type="text11"
                 placeholder="Enter Username"
                 autoComplete="off"
                 name="name"
@@ -68,7 +68,7 @@ function Login() {
               <br />
 
               <input
-                type="password"
+                type="password11"
                 placeholder="Enter Password"
                 name="password"
                 autoComplete="off"

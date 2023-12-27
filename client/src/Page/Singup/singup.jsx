@@ -2,11 +2,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
-
-
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import Nav from "../Navbar/Navbar";
 import "./sing.css";
 
@@ -71,7 +68,7 @@ function singup() {
     <div>
       <Nav/>
       <div className="mainxx">
-        <div className="sub">
+        <div className="subxx">
           <Form onSubmit={handleSubmit}>
             <h4 type="reg">Register</h4>
 
@@ -127,7 +124,7 @@ function singup() {
               <div className="text-danger">{errors.password}</div>
             </Form.Group>
 
-            <Button variant="primary" type="submit11">
+            <Button variant="primary" type="submit111">
               Submit
             </Button>
           </Form>
@@ -145,7 +142,7 @@ function singup() {
             theme="dark"
           />
 
-          <Button variant="primary" type="login11">
+          <Button variant="primary" type="login111">
             <a href="/home">Login</a>
           </Button>
         </div>

@@ -9,7 +9,7 @@ import Todo_personal from "./TODO/components/person-list/todo_personal";
 import User from "./TODO/components/user-list/todo_user"
 import Todo_Update from "./TODO/components/todo-list/update/todo_update"
 import User_Update from "./TODO/components/user-list/user-update/u_update"
-import Personal_Update from "./TODO/components/person-list/person-update/p-update"
+
 
 const router = createBrowserRouter([
   {
@@ -52,10 +52,7 @@ const router = createBrowserRouter([
     path: "/update/user/:id",
     element: <User_Update />,
   },
-  {
-    path: "/edit/person/:id",
-    element: <Personal_Update />,
-  },
+
 
 ]);
 

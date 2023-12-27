@@ -105,6 +105,7 @@ app.put("/update_task/:id", async (req, res) => {
     const list = await List.findByIdAndUpdate(req.params.id, { title, body });
     list.save().then(() =>
       res.status(200).json({
+        list: list,
         title: list.title,
         body: list.body,
         message: "Task Updated!",
@@ -173,20 +174,26 @@ app.get("/viewuser", async (req, res) => {
   res.status(200).json(user);
 });
 
-// app.get("/viewtask/:id", async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const list = await TodoModel.find({ _id: id });
-//     res.status(200).json({
-//       list: list,
-//     });
-//     console.log("id found");
-//   } catch {
-//     res.status(200).json({ message: "No one found" });
-//     console.log("no one related to id");
-//   }
-// });
 
+// todo orginal
+
+app.get("/viewtaskone/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const list = await TodoModel.find({ _id: id });
+    res.status(200).json({
+      list: list,
+      title: list.title,
+      body: list.body,
+    });
+    console.log("id found");
+  } catch {
+    res.status(200).json({ message: "No one found" });
+    console.log("no one related to id");
+  }
+});
+
+// todo related to personal data
 
 app.get("/viewtask/:id", async (req, res) => {
   try {
@@ -194,6 +201,9 @@ app.get("/viewtask/:id", async (req, res) => {
     const list = await TodoModel.find({ user11: id });
     res.status(200).json({
       list: list,
+      title: list.title,
+      body: list.body,
+
       message: "Task Updated!",
     });
     console.log("id found");

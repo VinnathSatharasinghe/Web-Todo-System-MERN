@@ -22,7 +22,7 @@
     margin-top: 30px;
     border: 4px solid purple;
     border-radius: 199px;
-    background: url('../../pic/gh.jpg');
+    background: url('../../pic/COF.jpg');
   }
 
   h4[type="login"] {
@@ -35,7 +35,7 @@
     border: 3px solid white;
     font-family: 'Nosifer', sans-serif;
     box-shadow: 5px 4px 4px 4px black;
-    background:url('../../pic/gh.jpg')
+    background:url('../../pic/COF.jpg')
   }
   
 
@@ -47,25 +47,23 @@
   }
 
 
-  input[type="text"],
-  input[type="password"] {
-    width: 50%;
+  input[type="text11"],
+  input[type="password11"] {
+    width: 40%;
     padding: 10px;
     margin: 11px;
     border-radius: 15px;
-    background-color: transparent;
     border: 2px solid black;
-    border-radius: 51px;
-    background:url('../pic/OIP.jpg');
     box-shadow: 1px 2px 9px 5px white;
-    
+    background: url('../../pic/COF.jpg');
+
   }
   
   Button[type="submit2"],
   Button[type="login2"]
    {
-    width: 150px;
-    height: 41px;
+    width: 200px;
+    height: 36px;
     font-size: 18px;
     color: wheat;
     font-weight: 300;
@@ -73,10 +71,9 @@
     border-radius: 60px;
     background: transparent;
     border: 2px solid black;
-    background: url('../../pic/gh.jpg');
     font-family: 'Nosifer', sans-serif;
     box-shadow: 1px 2px 4px 5px white;
-    
+    background: url('../../pic/COF.jpg');
   }
   
   @media (max-width: 890px) {

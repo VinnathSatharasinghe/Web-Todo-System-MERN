@@ -22,7 +22,7 @@
     border-radius: 20%;
     padding: -41px 0px 51px 0px;
     margin-bottom: 35px;
-    background: url('../../pic/pic2.jpg');
+    background: url('../../pic/COF.jpg');
     border: 6px solid black;
     box-shadow: 1px 2px 11px 6px white;
     
@@ -49,7 +49,7 @@
   
   
   main {
-    background: url('../../pic/gh.jpg');
+    background: url('../../pic/COF.jpg');
     padding: 20px;
     border: 6px solid black;
     box-shadow: 1px 6px 16px 3px white;
@@ -62,6 +62,7 @@
     border: 6px solid black;
     box-shadow: 1px 2px 11px 6px white;
     font-family: 'Nosifer', sans-serif;
+    background: url('../../pic/FRONT.jpg');
   }
   
   .hero h1 {
@@ -88,7 +89,7 @@
     transition: 0.8s all ease;
     cursor: pointer;
     font-family: 'Nosifer', sans-serif;
-    background: url('../../pic/pic2.jpg');
+    background: url('../../pic/gh.jpg');
     box-shadow: 5px 4px 6px white, 15px 11px 6px black;
 
 }
@@ -98,36 +99,16 @@
     
 }
 header ul li a:hover {
-  color: darkgoldenrod
+  color: darkgoldenrod;
+  
 } 
-  
-  .cta-button {
-    display: inline-block;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 41px;
-    transition: background-color 0.3s;
-    font-family: 'Nosifer', sans-serif;
-    box-shadow: 1px 1px 1px 1px white;
-    background: url('../../pic/gh.jpg');
-    transition: 0.5s;
-    
-  }
-  
-  .cta-button:hover {
-    transform: translateY(-6px);
-    color:darkorange;
-    
-  }
   
   .features {
     display: flex;
     color: white;
-    margin: 40px 0;
+    margin: 70px 0;
     font-weight: 600;
     justify-content: space-around;
-    background: url('../../pic/gh.jpg');
     margin: 50px;
   }
   
@@ -137,18 +118,14 @@ header ul li a:hover {
     padding: 20px;
     border: 4px solid black;
     box-shadow: 3px 2px 6px 4px white;
-    margin-left: 5px;
-    
-    
+    margin: 10px;
+    background: url('../../pic/COF.jpg');
     
   }
   
   .feature h2 {
     font-size: 1.7rem;
     margin-bottom: 10px;
-    
-    
-    
   }
   
   footer {
@@ -158,7 +135,6 @@ header ul li a:hover {
     padding: 10px 0;
     margin-top: 20px;
     font-family: 'Nosifer', sans-serif;
-    background: url('../../pic/gh.jpg');
     box-shadow: 2px 4px 7px 5px white;
     
   }
@@ -190,8 +166,6 @@ header ul li a{
     letter-spacing: 3px;
   
 }
-
-
 
 
 @media (max-width: 800px) {
@@ -229,8 +203,9 @@ header ul li a{
       padding: 20px;
       border: 4px solid black;
       box-shadow: 3px 2px 6px 4px white;
-      margin-right: 5px;
+      margin-right: 25px;
       border-radius: 11px;
+      background: url('../../pic/COF.jpg');
       
     }
 

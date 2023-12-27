@@ -35,7 +35,7 @@ function Home() {
           </section>
           <section className="features">
             <div className="feature">
-              <h2>Context Analysis</h2>
+              <h2>Context Analysis System</h2>
               <p>Implement a system that analyzes the context of each task, considering factors such as location, time, and priority.</p>
             </div>
             <div className="feature">
@@ -49,7 +49,7 @@ function Home() {
           </section>
         </main>
         <footer>
-          <p>&copy; {new Date().getFullYear()} Winny Cafe</p>
+          <p>&copy; {new Date().getFullYear()} Winny Todo</p>
         </footer>
       </div>
     </div>

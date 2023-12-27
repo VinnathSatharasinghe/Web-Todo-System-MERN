@@ -1,14 +1,15 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Link from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
-import Nav from "../../Page/Navbar/Navbar";
-import "../Todo_Main/todo_.css";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+
+import Nav from "../../Page/Navbar/Navbar";
+import "../Todo_Main/todo_.css";
 
 function todo() {
   const location = useLocation();
@@ -141,7 +142,7 @@ function todo() {
               <div className="text-danger">{errors.body}</div>
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit123">
               Todo
             </Button>
           </Form>
@@ -159,26 +160,15 @@ function todo() {
             theme="dark"
           />
 
-          <Button variant="primary" type="submit">
-            <a href="/user">User</a>
-          </Button>
-          <Button variant="primary" type="submit">
-            <a href="/todo_list">List</a>
-          </Button>
         </div>
       </div>
 
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+
 
       <div className="mainall">
         <div className="box1">
-          <h2>{name}'s Todo</h2>
+          <h3>{name}'s -  Todo</h3>
           <br />
           <table className="tablex">
             <thead>
@@ -186,17 +176,16 @@ function todo() {
                 <th>Title</th>
                 <th>Body</th>
                 <th></th>
-              </tr>.
+              </tr>
             </thead>
             <tbody>
             {todos.map((todo) => (
                 <tr key={todo._id}>
                   <td>{todo.title}</td>
                   <td>{todo.body}</td>
-           
                   <td>
                    
-                  <Link to={`/update/person/${todo._id}`} className="btnx1">
+                  <Link to={`/update/task/${todo._id}`} className="btnx1">
                       Edit
                     </Link>
                     <br />
